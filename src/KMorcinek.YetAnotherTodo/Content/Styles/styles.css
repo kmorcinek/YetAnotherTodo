@@ -1,0 +1,22 @@
+﻿body {
+    text-align: center;
+}
+
+#notes {
+    width: 900px;
+    float: left;
+}
+
+#topics {
+    width: 300px;
+    float: left;
+}
+
+    #topics ul {
+        width: 300px;
+    }
+
+#main {
+    margin: 0 auto;
+    width: 1250px;
+}

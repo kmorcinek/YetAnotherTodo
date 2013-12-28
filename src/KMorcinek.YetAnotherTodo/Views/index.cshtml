@@ -1,20 +1,82 @@
-﻿<!DOCTYPE html>
+﻿@using KMorcinek.YetAnotherTodo
+@using KMorcinek.YetAnotherTodo.ViewModels;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TopicViewModel>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>KMorcinek.YetAnotherTodo</title>
 
-	<style type="text/css">
+    <link rel="stylesheet" type="text/css" href="/Content/Styles/styles.css" media="screen" />
 
-		body {
-			text-align: center;
-		}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+    <script>
+        function TopicCtrl($scope, $http) {
+            $scope.notes = [];
 
-	</style>
+            $http.get('/api/topic/@Model.Topic.Id').
+                success(function (data) {
+                    $scope.notes = data;
+                });
 
+            $scope.addNewNote = function () {
+                var notes = $scope.notes;
+                var maxId = 0;
+                for (var i = 0; i < notes.length; i++) {
+                    if (notes[i].Id > maxId) {
+                        maxId = notes[i].Id;
+                    }
+                }
+                var newNote = { Content: $scope.newNoteText, Id: maxId + 1 };
+
+                $http.post('/api/topic/insert/@Model.Topic.Id/', newNote).
+                    success(function (data) {
+                        $scope.notes.push(newNote);
+                        $scope.newNoteText = "";
+                    })
+                    .error(function (data, status, headers, config) {
+                        alert(data);
+                    });
+            };
+
+            $scope.remove = function (item) {
+                var confirmed = confirm("Delete?");
+
+                if (confirmed) {
+                    $http.get('/api/topic/delete/@Model.Topic.Id/' + item.Id).
+                        success(function (data) {
+                            var index = $scope.notes.indexOf(item);
+                            $scope.notes.splice(index, 1);
+                        })
+                        .error(function (data, status, headers, config) {
+                            alert(data);
+                        });
+                }
+            };
+        }
+
+    </script>
 </head>
-<body>
-	<img src="~/Content/nancy-logo.png" alt="Nancy logo" /><br />
-	This view was rendered using the Nancy Razor view engine
+<body ng-app>
+    <h1>@Model.Topic.Name</h1>
+    <div id="main" ng-controller="TopicCtrl">
+        <div id="notes">
+            <ul>
+                <li ng-repeat="note in notes">{{note.Content}} <button ng-click="remove(note)">Remove</button></li>
+            </ul>
+            <div><textarea ng-model="newNoteText"></textarea><button ng-click="addNewNote()">Add</button></div>
+        </div>
+        <aside id="topics">
+            <ul>
+                @foreach (var topic in @Model.TopicsViewModel.Topics)
+                {
+                    var name = SlugFactory.GenerateSlug(topic.Name);
+                    <li><a href="/@name/@topic.Id">@topic.Name</a></li>
+                }
+            </ul>
+        </aside>
+    </div>
 </body>
 </html>
