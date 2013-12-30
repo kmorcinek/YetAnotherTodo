@@ -1,69 +1,66 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>KMorcinek.YetAnotherTodo</title>
+﻿@using KMorcinek.YetAnotherTodo
+@using KMorcinek.YetAnotherTodo.ViewModels;
 
-    <link rel="stylesheet" type="text/css" href="/Content/Styles/styles.css" media="screen" />
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TopicViewModel>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+@{
+    Layout = "layout.cshtml";
+}
+
+@section ScriptRegionTop{
     <script>
-    function TopicCtrl($scope, $http) {
-        $scope.notes = [];
+        function TopicCtrl($scope, $http) {
+            $scope.notes = [];
 
-        $http.get('/api/topic').
-            success(function (data) {
-                $scope.notes = data;
-            });
-
-        $scope.addNew = function () {
-            var newSlimTopic = { Name: $scope.newText };
-
-            $http.post('/api/topic/insert/', newSlimTopic).
+            $http.get('/api/topic').
                 success(function (data) {
-                    $scope.notes.push(data);
-                    $scope.newText = "";
-                })
-                .error(function (data, status, headers, config) {
-                    alert(data);
+                    $scope.notes = data;
                 });
-            };
 
-        $scope.isShownChange = function(item) {
-            $http.post('/api/topic/update/', item)
-                .error(function (data, status, headers, config) {
-                    alert(data);
-                });
-        };
+            $scope.addNew = function () {
+                var newSlimTopic = { Name: $scope.newText };
 
-        $scope.remove = function (item) {
-            var confirmed = confirm("Delete?");
-
-            if (confirmed) {
-                $http.get('/api/topic/delete/' + item.Id).
+                $http.post('/api/topic/insert/', newSlimTopic).
                     success(function (data) {
-                        var index = $scope.notes.indexOf(item);
-                        $scope.notes.splice(index, 1);
+                        $scope.notes.push(data);
+                        $scope.newText = "";
                     })
                     .error(function (data, status, headers, config) {
                         alert(data);
                     });
-            }
-        };
-    }
+            };
 
+            $scope.isShownChange = function (item) {
+                $http.post('/api/topic/update/', item)
+                    .error(function (data, status, headers, config) {
+                        alert(data);
+                    });
+            };
+
+            $scope.remove = function (item) {
+                var confirmed = confirm("Delete?");
+
+                if (confirmed) {
+                    $http.get('/api/topic/delete/' + item.Id).
+                        success(function (data) {
+                            var index = $scope.notes.indexOf(item);
+                            $scope.notes.splice(index, 1);
+                        })
+                        .error(function (data, status, headers, config) {
+                            alert(data);
+                        });
+                }
+            };
+        }
     </script>
-</head>
-<body ng-app>
-    <nav><a href="/">Notes</a> <a href="/admin">Administration</a></nav>
-    <h1>Administration</h1>
-    <div id="main" ng-controller="TopicCtrl">
-        <div id="notes">
-            <ul>
-                <li ng-repeat="note in notes"><input type="checkbox" ng-model="note.IsShown" ng-change="isShownChange(note)" /><span class="shown-{{note.IsShown}}">{{note.Name}}</span><button ng-click="remove(note)">Remove</button></li>
-            </ul>
-            <div><textarea ng-model="newText"></textarea><button ng-click="addNew()">Add</button></div>
-        </div>
+}
+
+<h1>Administration</h1>
+<div id="main" ng-controller="TopicCtrl">
+    <div id="notes">
+        <ul>
+            <li ng-repeat="note in notes"><input type="checkbox" ng-model="note.IsShown" ng-change="isShownChange(note)" /><span class="shown-{{note.IsShown}}">{{note.Name}}</span><button ng-click="remove(note)">Remove</button></li>
+        </ul>
+        <div><textarea ng-model="newText"></textarea><button ng-click="addNew()">Add</button></div>
     </div>
-</body>
-</html>
+</div>

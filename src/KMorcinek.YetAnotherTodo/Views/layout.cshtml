@@ -1,0 +1,23 @@
+﻿@using KMorcinek.YetAnotherTodo
+@using KMorcinek.YetAnotherTodo.ViewModels;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TopicViewModel>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>KMorcinek.YetAnotherTodo</title>
+
+    <link rel="stylesheet" type="text/css" href="/Content/Styles/styles.css" media="screen" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+    
+    @RenderSection("ScriptRegionTop", required: false)
+
+</head>
+    <body ng-app>
+        <nav><a href="/">Notes</a> <a href="/admin">Administration</a></nav>
+        @RenderBody()
+    </body>
+</html>
