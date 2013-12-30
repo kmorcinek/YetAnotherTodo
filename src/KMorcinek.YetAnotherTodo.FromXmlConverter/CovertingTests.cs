@@ -124,8 +124,8 @@ namespace KMorcinek.YetAnotherTodo.FromXmlConverter
                     Name = "For now",
                     Notes = new[]
                     {
-                        new Note {Content = "drink", Id = 1},
-                        new Note {Content = "eat", Id = 2},
+                        new Note {Content = "Drink", Id = 1},
+                        new Note {Content = "Eat", Id = 2},
                     }.ToList(),
                     IsShown=true,
                 },
@@ -134,10 +134,19 @@ namespace KMorcinek.YetAnotherTodo.FromXmlConverter
                     Name = "For later",
                     Notes = new[]
                     {
-                        new Note {Content = "sleep", Id = 1},
-                        new Note {Content = "sleep better", Id = 2},
+                        new Note {Content = "Sleep", Id = 1},
+                        new Note {Content = "Sleep better", Id = 2},
                     }.ToList(),
                     IsShown=true,
+                },
+                new Topic
+                {
+                    Name = "Obsolete stuff",
+                    Notes = new[]
+                    {
+                        new Note {Content = "Learn PHP", Id = 1},
+                        new Note {Content = "Learn spanish", Id = 2},
+                    }.ToList(),
                 },
             };
 
