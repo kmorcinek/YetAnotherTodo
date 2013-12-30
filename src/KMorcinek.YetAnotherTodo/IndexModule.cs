@@ -1,4 +1,5 @@
 ﻿using KMorcinek.YetAnotherTodo.ViewModelFactories;
+using Nancy.Security;
 
 namespace KMorcinek.YetAnotherTodo
 {
@@ -10,6 +11,8 @@ namespace KMorcinek.YetAnotherTodo
 
         public IndexModule()
         {
+            this.RequiresAuthentication();
+
             Get["/"] = parameters =>
             {
                 return GetView(DefaultTopicId);

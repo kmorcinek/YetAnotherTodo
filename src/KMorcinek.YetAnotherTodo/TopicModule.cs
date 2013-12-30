@@ -1,6 +1,7 @@
 ﻿using KMorcinek.YetAnotherTodo.Models;
 using Nancy;
 using Nancy.ModelBinding;
+using Nancy.Security;
 
 namespace KMorcinek.YetAnotherTodo
 {
@@ -9,6 +10,8 @@ namespace KMorcinek.YetAnotherTodo
         public TopicModule()
             : base("/api/topic")
         {
+            this.RequiresAuthentication();
+
             Get["/{id}"] = parameters =>
             {
                 int id = int.Parse(parameters.id.Value);
