@@ -69,9 +69,9 @@
 <div id="main" ng-controller="TopicCtrl">
     <div id="notes">
         <ul class="list-unstyled">
-            <li ng-repeat="note in notes">{{note.Content}}<button ng-click="remove(note)">Remove</button></li>
+            <li ng-repeat="note in notes"><span>{{note.Content}}</span><button class="btn" ng-click="remove(note)">Remove</button></li>
         </ul>
-        <div><textarea ng-model="newNoteText"></textarea><button ng-click="addNewNote()">Add</button></div>
+        <div><textarea ng-model="newNoteText"></textarea><button class="btn-primary" ng-click="addNewNote()"><i class="glyphicon-plus"></i>Add</button></div>
     </div>
     <aside id="topics">
         <ul class="list-unstyled">

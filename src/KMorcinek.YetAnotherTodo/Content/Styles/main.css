@@ -7,6 +7,10 @@
     float: left;
 }
 
+    #notes button {
+        margin: 5px 20px;
+    }
+
 #topics {
     width: 300px;
     float: left;
