@@ -1,5 +1,4 @@
-﻿@using KMorcinek.YetAnotherTodo
-@using KMorcinek.YetAnotherTodo.ViewModels;
+﻿@using KMorcinek.YetAnotherTodo.ViewModels;
 
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<TopicViewModel>
 
@@ -69,13 +68,13 @@
 <h1>@Model.Topic.Name</h1>
 <div id="main" ng-controller="TopicCtrl">
     <div id="notes">
-        <ul>
+        <ul class="list-unstyled">
             <li ng-repeat="note in notes">{{note.Content}}<button ng-click="remove(note)">Remove</button></li>
         </ul>
         <div><textarea ng-model="newNoteText"></textarea><button ng-click="addNewNote()">Add</button></div>
     </div>
     <aside id="topics">
-        <ul>
+        <ul class="list-unstyled">
             <li ng-repeat="topic in topics | filter:{IsShown:true}">
                 <a href="/{{topic.Slug}}/{{topic.Id}}">{{topic.Name}}</a>
             </li>

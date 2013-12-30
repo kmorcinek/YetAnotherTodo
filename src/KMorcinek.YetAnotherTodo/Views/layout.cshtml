@@ -9,16 +9,19 @@
     <meta charset="utf-8" />
     <title>KMorcinek.YetAnotherTodo</title>
 
+    <link href="/Content/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/Content/Styles/styles.css" media="screen" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
-    <script src="~/Content/Scripts/main.js"></script>
-    
     @RenderSection("ScriptRegionTop")
 
 </head>
     <body ng-app>
         <nav><a href="/">Notes</a> <a href="/admin">Administration</a></nav>
         @RenderBody()
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="~/Content/Scripts/main.js"></script>
+        <script src="/Scripts/bootstrap.min.js"></script>
     </body>
 </html>
