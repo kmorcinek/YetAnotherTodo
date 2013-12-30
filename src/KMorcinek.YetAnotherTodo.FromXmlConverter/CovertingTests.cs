@@ -93,6 +93,7 @@ namespace KMorcinek.YetAnotherTodo.FromXmlConverter
                 {
                     Id = id,
                     Name = name,
+                    IsShown = true,
                 };
 
                 yield return topic;
@@ -125,7 +126,8 @@ namespace KMorcinek.YetAnotherTodo.FromXmlConverter
                     {
                         new Note {Content = "drink", Id = 1},
                         new Note {Content = "eat", Id = 2},
-                    }.ToList()
+                    }.ToList(),
+                    IsShown=true,
                 },
                 new Topic
                 {
@@ -134,7 +136,8 @@ namespace KMorcinek.YetAnotherTodo.FromXmlConverter
                     {
                         new Note {Content = "sleep", Id = 1},
                         new Note {Content = "sleep better", Id = 2},
-                    }.ToList()
+                    }.ToList(),
+                    IsShown=true,
                 },
             };
 

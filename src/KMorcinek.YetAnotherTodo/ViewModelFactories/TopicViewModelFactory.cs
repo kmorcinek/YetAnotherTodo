@@ -14,7 +14,7 @@ namespace KMorcinek.YetAnotherTodo.ViewModelFactories
             var topics = db.UseOnceTo().Query<Topic>().ToArray();
             var topicsViewModel = new TopicsViewModel
             {
-                Topics = topics,
+                Topics = topics.Where(t => t.IsShown),
             };
 
             var topicViewModel = new TopicViewModel

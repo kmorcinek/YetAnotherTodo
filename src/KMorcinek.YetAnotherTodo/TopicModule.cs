@@ -69,19 +69,36 @@ namespace KMorcinek.YetAnotherTodo
             {
                 var slimTopic = this.Bind<SlimTopic>();
 
-                var db = DbRepository.GetDb();
-
                 var topic = new Topic
                 {
                     Name = slimTopic.Name,
                     Notes = new List<Note>(),
+                    IsShown = true,
                 };
+
+                var db = DbRepository.GetDb();
 
                 db.UseOnceTo().InsertAs<Topic>(topic);
 
                 var slimTopicToReturn = new SlimTopic(topic);
 
                 return Response.AsJson(slimTopicToReturn);
+            };
+
+            Post["/update"] = _ =>
+            {
+                var slimTopic = this.Bind<SlimTopic>();
+
+                var db = DbRepository.GetDb();
+
+                var topic = db.UseOnceTo().Query<Topic>().Where(t => t.Id == slimTopic.Id).Single();
+
+                topic.Name = slimTopic.Name;
+                topic.IsShown = slimTopic.IsShown;
+
+                db.UseOnceTo().Update(topic);
+
+                return Response.AsJson(true);
             };
 
             Get["/delete/{topicId}"] = parameters =>

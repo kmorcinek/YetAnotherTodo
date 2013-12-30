@@ -20,3 +20,8 @@
     margin: 0 auto;
     width: 1250px;
 }
+
+.shown-false {
+    text-decoration: line-through;
+    color: grey;
+}
