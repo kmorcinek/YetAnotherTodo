@@ -93,6 +93,7 @@
     <Content Include="App_Data\user.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Scripts\main.js" />
     <Content Include="Content\Styles\styles.css" />
     <Content Include="Web.config" />
     <None Include="Properties\PublishProfiles\notes.angelo.hostingasp.pl - Web Deploy.pubxml" />
@@ -130,7 +131,6 @@
     <Compile Include="TopicModule.cs" />
     <Compile Include="UserValidator.cs" />
     <Compile Include="ViewModelFactories\TopicViewModelFactory.cs" />
-    <Compile Include="ViewModels\TopicsViewModel.cs" />
     <Compile Include="ViewModels\TopicViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

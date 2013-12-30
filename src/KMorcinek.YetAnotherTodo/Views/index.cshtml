@@ -9,39 +9,39 @@
 
 @section ScriptRegionTop{
     <script>
-        function TopicCtrl($scope, $http) {
-            $scope.notes = [];
+    function TopicCtrl($scope, $http) {
+        $scope.notes = [];
 
-            $http.get('/api/topic/@Model.Topic.Id').
-                success(function (data) {
-                    $scope.notes = data;
-                });
+        $http.get('/api/topic/@Model.Topic.Id').
+            success(function (data) {
+                $scope.notes = data;
+            });
 
-            $scope.addNewNote = function () {
-                var notes = $scope.notes;
-                var maxId = 0;
-                for (var i = 0; i < notes.length; i++) {
-                    if (notes[i].Id > maxId) {
-                        maxId = notes[i].Id;
-                    }
+        $scope.addNewNote = function () {
+            var notes = $scope.notes;
+            var maxId = 0;
+            for (var i = 0; i < notes.length; i++) {
+                if (notes[i].Id > maxId) {
+                    maxId = notes[i].Id;
                 }
-                var newNote = { Content: $scope.newNoteText, Id: maxId + 1 };
+            }
+            var newNote = { Content: $scope.newNoteText, Id: maxId + 1 };
 
-                $http.post('/api/topic/insert/@Model.Topic.Id/', newNote).
-                    success(function (data) {
-                        $scope.notes.push(newNote);
-                        $scope.newNoteText = "";
-                    })
-                    .error(function (data, status, headers, config) {
-                        alert(data);
-                    });
-            };
+            $http.post('/api/topic/insert/@Model.Topic.Id/', newNote).
+                success(function (data) {
+                    $scope.notes.push(newNote);
+                    $scope.newNoteText = "";
+                })
+                .error(function (data, status, headers, config) {
+                    alert(data);
+                });
+        };
 
-            $scope.remove = function (item) {
-                var confirmed = confirm("Delete?");
+        $scope.remove = function (item) {
+            var confirmed = confirm("Delete?");
 
-                if (confirmed) {
-                    $http.get('/api/topic/delete/@Model.Topic.Id/' + item.Id).
+            if (confirmed) {
+                $http.get('/api/topic/delete/@Model.Topic.Id/' + item.Id).
                         success(function (data) {
                             var index = $scope.notes.indexOf(item);
                             $scope.notes.splice(index, 1);
@@ -51,6 +51,17 @@
                         });
                 }
             };
+
+            $scope.topics = [];
+
+            $http.get('/api/topic').
+                success(function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].Slug = generateSlug(data[i].Name);
+                    }
+
+                    $scope.topics = data;
+                });
         }
     </script>
 }
@@ -59,17 +70,15 @@
 <div id="main" ng-controller="TopicCtrl">
     <div id="notes">
         <ul>
-            <li ng-repeat="note in notes">{{note.Content}} <button ng-click="remove(note)">Remove</button></li>
+            <li ng-repeat="note in notes">{{note.Content}}<button ng-click="remove(note)">Remove</button></li>
         </ul>
         <div><textarea ng-model="newNoteText"></textarea><button ng-click="addNewNote()">Add</button></div>
     </div>
     <aside id="topics">
         <ul>
-            @foreach (var topic in @Model.TopicsViewModel.Topics)
-            {
-                var name = SlugFactory.GenerateSlug(topic.Name);
-                <li><a href="/@name/@topic.Id">@topic.Name</a></li>
-            }
+            <li ng-repeat="topic in topics | filter:{IsShown:true}">
+                <a href="/{{topic.Slug}}/{{topic.Id}}">{{topic.Name}}</a>
+            </li>
         </ul>
     </aside>
 </div>
