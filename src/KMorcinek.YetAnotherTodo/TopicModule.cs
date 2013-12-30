@@ -1,4 +1,6 @@
-﻿using KMorcinek.YetAnotherTodo.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using KMorcinek.YetAnotherTodo.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Security;
@@ -30,7 +32,7 @@ namespace KMorcinek.YetAnotherTodo
                 var db = DbRepository.GetDb();
 
                 var topic = db.UseOnceTo().Query<Topic>().Where(t => t.Id == topicId).Single();
-                
+
                 topic.Notes.Add(note);
 
                 db.UseOnceTo().Update(topic);
@@ -49,6 +51,46 @@ namespace KMorcinek.YetAnotherTodo
                 topic.Notes.RemoveAll(n => n.Id == noteId);
 
                 db.UseOnceTo().Update(topic);
+
+                return Response.AsJson(true);
+            };
+
+            Get["/"] = _ =>
+            {
+                var db = DbRepository.GetDb();
+                var topics = db.UseOnceTo().Query<Topic>().ToArray();
+
+                var slimTopics = topics.Select(t => new SlimTopic(t));
+
+                return Response.AsJson(slimTopics);
+            };
+
+            Post["/insert"] = _ =>
+            {
+                var slimTopic = this.Bind<SlimTopic>();
+
+                var db = DbRepository.GetDb();
+
+                var topic = new Topic
+                {
+                    Name = slimTopic.Name,
+                    Notes = new List<Note>(),
+                };
+
+                db.UseOnceTo().InsertAs<Topic>(topic);
+
+                var slimTopicToReturn = new SlimTopic(topic);
+
+                return Response.AsJson(slimTopicToReturn);
+            };
+
+            Get["/delete/{topicId}"] = parameters =>
+            {
+                int topicId = int.Parse(parameters.topicId.Value);
+
+                var db = DbRepository.GetDb();
+
+                db.UseOnceTo().DeleteById<Topic>(topicId);
 
                 return Response.AsJson(true);
             };

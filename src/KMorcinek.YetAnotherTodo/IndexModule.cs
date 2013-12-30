@@ -1,4 +1,6 @@
-﻿using KMorcinek.YetAnotherTodo.ViewModelFactories;
+﻿using System.Web;
+using KMorcinek.YetAnotherTodo.Models;
+using KMorcinek.YetAnotherTodo.ViewModelFactories;
 using Nancy.Security;
 
 namespace KMorcinek.YetAnotherTodo
@@ -7,21 +9,30 @@ namespace KMorcinek.YetAnotherTodo
 
     public class IndexModule : NancyModule
     {
-        private const int DefaultTopicId = 1;
-
         public IndexModule()
         {
             this.RequiresAuthentication();
 
             Get["/"] = _ =>
             {
-                return GetView(DefaultTopicId);
+                var db = DbRepository.GetDb();
+                var firstTopic = db.UseOnceTo().Query<Topic>().OrderBy(t => t.Id).First();
+
+                if (firstTopic == null)
+                    throw new HttpException("No topics created yet.");
+
+                return GetView(firstTopic.Id);
             };
 
             Get["/{name}/{id}"] = parameters =>
             {
                 var id = int.Parse(parameters.id.Value);
                 return GetView(id);
+            };
+
+            Get["/admin"] = _ =>
+            {
+                return View["Admin"];
             };
         }
 

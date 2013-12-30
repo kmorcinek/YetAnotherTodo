@@ -59,24 +59,25 @@
 
     </script>
 </head>
-<body ng-app>
-    <h1>@Model.Topic.Name</h1>
-    <div id="main" ng-controller="TopicCtrl">
-        <div id="notes">
-            <ul>
-                <li ng-repeat="note in notes">{{note.Content}} <button ng-click="remove(note)">Remove</button></li>
-            </ul>
-            <div><textarea ng-model="newNoteText"></textarea><button ng-click="addNewNote()">Add</button></div>
+    <body ng-app>
+        <nav><a href="/notes">Notes</a> <a href="/admin">Administration</a></nav>
+        <h1>@Model.Topic.Name</h1>
+        <div id="main" ng-controller="TopicCtrl">
+            <div id="notes">
+                <ul>
+                    <li ng-repeat="note in notes">{{note.Content}} <button ng-click="remove(note)">Remove</button></li>
+                </ul>
+                <div><textarea ng-model="newNoteText"></textarea><button ng-click="addNewNote()">Add</button></div>
+            </div>
+            <aside id="topics">
+                <ul>
+                    @foreach (var topic in @Model.TopicsViewModel.Topics)
+                    {
+                        var name = SlugFactory.GenerateSlug(topic.Name);
+                        <li><a href="/@name/@topic.Id">@topic.Name</a></li>
+                    }
+                </ul>
+            </aside>
         </div>
-        <aside id="topics">
-            <ul>
-                @foreach (var topic in @Model.TopicsViewModel.Topics)
-                {
-                    var name = SlugFactory.GenerateSlug(topic.Name);
-                    <li><a href="/@name/@topic.Id">@topic.Name</a></li>
-                }
-            </ul>
-        </aside>
-    </div>
-</body>
+    </body>
 </html>
