@@ -21,7 +21,7 @@ namespace KMorcinek.YetAnotherTodo
                 if (firstTopic == null)
                     throw new HttpException("No topics created yet.");
 
-                return GetView(firstTopic.Id);
+                return Response.AsRedirect(string.Format("/{0}/{1}", SlugFactory.GenerateSlug(firstTopic.Name), firstTopic.Id));
             };
 
             Get["/{name}/{id}"] = parameters =>
