@@ -13,7 +13,7 @@ namespace KMorcinek.YetAnotherTodo
         {
             this.RequiresAuthentication();
 
-            Get["/"] = parameters =>
+            Get["/"] = _ =>
             {
                 return GetView(DefaultTopicId);
             };
