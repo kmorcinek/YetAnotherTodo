@@ -104,12 +104,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Properties\PublishProfiles\notestest.angelo.hostingasp.pl - Web Deploy.pubxml.user" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Web.config" />
-    <None Include="Properties\PublishProfiles\notes.angelo.hostingasp.pl - Web Deploy.pubxml" />
     <Content Include="Views\Admin.cshtml" />
     <Content Include="Views\layout.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
