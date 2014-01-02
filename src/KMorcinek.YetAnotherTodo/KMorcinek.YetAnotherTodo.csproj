@@ -87,16 +87,19 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NotesDB.sdf">
+    <None Include="App_Data\NotesDB.sdf" />
+    <None Include="App_Data\user.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\user.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Scripts\AdminController.js" />
+    <Content Include="Content\Scripts\TopicController.js" />
+    <Content Include="Content\Scripts\YetAnotherTodo.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Scripts\main.js" />
     <Content Include="Content\Styles\main.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -113,9 +116,12 @@
     <Content Include="Content\Scripts\jquery-1.9.1.js" />
     <Content Include="Content\Scripts\jquery-1.9.1.min.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\Admin.cshtml" />
-    <Content Include="Views\layout.cshtml" />
+    <Content Include="Content\view\admin.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\YetAnotherTodo.cshtml" />
     <Content Include="Content\Scripts\jquery-1.9.1.min.map" />
+    <None Include="Properties\PublishProfiles\notestest.angelo.hostingasp.pl - Web Deploy.pubxml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -151,7 +157,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Views\index.cshtml" />
+    <Content Include="Content\view\topic.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

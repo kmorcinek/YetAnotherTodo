@@ -21,7 +21,7 @@ namespace KMorcinek.YetAnotherTodo
                 var db = DbRepository.GetDb();
                 var topic = db.UseOnceTo().Query<Topic>().Where(t => t.Id == id).Single();
 
-                return Response.AsJson(topic.Notes);
+                return Response.AsJson(topic);
             };
 
             Post["/insert/{topicId}"] = parameters =>

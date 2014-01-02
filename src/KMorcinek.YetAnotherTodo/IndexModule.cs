@@ -21,26 +21,8 @@ namespace KMorcinek.YetAnotherTodo
                 if (firstTopic == null)
                     throw new HttpException("No topics created yet.");
 
-                return Response.AsRedirect(string.Format("/{0}/{1}", SlugFactory.GenerateSlug(firstTopic.Name), firstTopic.Id));
+                return View["YetAnotherTodo"];
             };
-
-            Get["/{name}/{id}"] = parameters =>
-            {
-                var id = int.Parse(parameters.id.Value);
-                return GetView(id);
-            };
-
-            Get["/admin"] = _ =>
-            {
-                return View["Admin"];
-            };
-        }
-
-        private dynamic GetView(int id)
-        {
-            var factory = new TopicViewModelFactory();
-            var viewModel = factory.Create(id);
-            return View["index", viewModel];
         }
     }
 }
