@@ -16,7 +16,7 @@
                 $scope.notes = data;
             });
 
-        $scope.addNewNote = function () {
+        $scope.addNewNote = function (text) {
             var notes = $scope.notes;
             var maxId = 0;
             for (var i = 0; i < notes.length; i++) {
@@ -24,7 +24,7 @@
                     maxId = notes[i].Id;
                 }
             }
-            var newNote = { Content: $scope.newNoteText, Id: maxId + 1 };
+            var newNote = { Content: text, Id: maxId + 1 };
 
             $http.post('/api/topic/insert/@Model.Topic.Id/', newNote).
                 success(function (data) {
@@ -71,7 +71,7 @@
         <ul class="list-unstyled">
             <li ng-repeat="note in notes"><span>{{note.Content}}</span><button class="btn" ng-click="remove(note)">Remove</button></li>
         </ul>
-        <div><textarea ng-model="newNoteText" placeholder="Something interesting?"></textarea><button class="btn-primary" ng-click="addNewNote()"><i class="glyphicon-plus"></i>Add</button></div>
+        <div><textarea ng-model="newNoteText" placeholder="Something interesting?"></textarea><button class="btn-primary" ng-click="addNewNote(newNoteText)"><i class="glyphicon-plus"></i>Add</button></div>
     </div>
     <aside id="topics">
         <ul class="list-unstyled">
