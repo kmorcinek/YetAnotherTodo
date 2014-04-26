@@ -1,15 +1,15 @@
 ﻿var yetAnotherTodoConfig = function ($routeProvider) {
     $routeProvider
       .when('/:anyTopicName/:topicId', {
-          controller: 'TopicController',
+          controller: 'TopicCtrl',
           templateUrl: 'Content/view/topic.html'
       })
       .when('/', {
-          controller: 'TopicController',
+          controller: 'TopicCtrl',
           templateUrl: 'Content/view/topic.html'
       })
     .when('/admin/', {
-        controller: 'AdminController',
+        controller: 'AdminCtrl',
         templateUrl: 'Content/view/admin.html'
     })
     ;

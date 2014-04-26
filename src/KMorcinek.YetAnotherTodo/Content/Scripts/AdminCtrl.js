@@ -1,5 +1,5 @@
-﻿YetAnotherTodo.controller('AdminController',
-    function AdminController($scope, $http) {
+﻿YetAnotherTodo.controller('AdminCtrl',
+    function ($scope, $http) {
         $scope.notes = [];
 
         $http.get('/api/topic').

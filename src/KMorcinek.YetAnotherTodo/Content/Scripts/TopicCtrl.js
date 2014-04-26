@@ -1,5 +1,5 @@
-﻿YetAnotherTodo.controller('TopicController',
-    function TopicController($scope, $http, $location, $routeParams) {
+﻿YetAnotherTodo.controller('TopicCtrl',
+    function ($scope, $http, $location, $routeParams) {
         $scope.notes = [];
     
         $scope.topicId = $routeParams.topicId;

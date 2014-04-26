@@ -1,26 +1,26 @@
 ﻿<!DOCTYPE html>
-<html lang="en" ng-app="YetAnotherTodo">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>KMorcinek.YetAnotherTodo</title>
 
     <link href="/Content/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/Content/Styles/main.css" media="screen" />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-sanitize.min.js"></script>
-    <script src="~/Content/Scripts/YetAnotherTodo.js" ></script>
-    <script src="~/Content/Scripts/TopicController.js"></script>
-    <script src="~/Content/Scripts/AdminController.js"></script>
-    <script src="~/Content/Scripts/main.js"></script>
 </head>
-<body>
+<body ng-app="YetAnotherTodo">
     <nav><a href="/#/">Notes</a> <a href="/#/admin">Administration</a></nav>
 
     <div ng-view></div>
 
     <script src="~/Content/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Content/Scripts/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-sanitize.min.js"></script>
+    <script src="~/Content/Scripts/YetAnotherTodo.js"></script>
+    <script src="~/Content/Scripts/AdminCtrl.js"></script>
+    <script src="~/Content/Scripts/TopicCtrl.js"></script>
+    <script src="~/Content/Scripts/main.js"></script>
+
 </body>
 </html>
