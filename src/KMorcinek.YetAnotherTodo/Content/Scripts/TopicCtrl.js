@@ -28,6 +28,8 @@
                 success(function (data) {
                     $scope.notes.push(newNote);
                     $scope.newNoteText = "";
+
+                    setFocusOnNewNote();
                 })
                 .error(function (data, status, headers, config) {
                     console.log(data);
@@ -51,6 +53,10 @@
 
         $scope.topics = [];
 
+        var setFocusOnNewNote = function () {
+            $('#new-content-text').focus();
+        }
+
         $http.get('/api/topic').
             success(function (data) {
                 for (var i = 0; i < data.length; i++) {
@@ -58,6 +64,8 @@
                 }
 
                 $scope.topics = data;
+
+                setFocusOnNewNote();
             });
     }
 );
