@@ -4,7 +4,7 @@
         <ul class="list-unstyled">
             <li ng-repeat="note in notes"><span ng-bind-html="note.Content | linky"></span><button class="btn" ng-click="remove(note)">Remove</button></li>
         </ul>
-        <div><textarea id="new-content-text" autofocus ng-model="newNoteText" placeholder="Something interesting?"></textarea><button class="btn-primary" ng-click="addNewNote(newNoteText)"><i class="glyphicon-plus"></i>Add</button></div>
+        <div><textarea id="new-content-text" autofocus ng-model="newNoteText" placeholder="Something interesting?"></textarea><button class="btn-primary" ng-click="addNewNote(newNoteText)" ng-disabled="!newNoteText"><i class="glyphicon-plus"></i>Add</button></div>
     </div>
     <aside id="topics">
         <ul class="list-unstyled">
