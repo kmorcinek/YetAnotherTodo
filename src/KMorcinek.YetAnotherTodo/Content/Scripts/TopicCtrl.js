@@ -14,7 +14,7 @@
             $scope.topicName = 'Choose a topic';
         }
 
-        $scope.addNewNote = function (text) {
+        $scope.addNote = function () {
             var notes = $scope.notes;
             var maxId = 0;
             for (var i = 0; i < notes.length; i++) {
@@ -22,7 +22,7 @@
                     maxId = notes[i].Id;
                 }
             }
-            var newNote = { Content: text, Id: maxId + 1 };
+            var newNote = { Content: $scope.newNoteText, Id: maxId + 1 };
 
             $http.post('/api/topic/insert/' + $scope.topicId, newNote).
                 success(function (data) {
@@ -35,6 +35,12 @@
                     console.log(data);
                 });
         };
+
+        $scope.addNoteByEnter = function(e) {
+            if(e.keyCode !== 13) return;
+
+            $scope.addNote();
+        }
 
         $scope.remove = function (item) {
             var confirmed = confirm("Delete?");
