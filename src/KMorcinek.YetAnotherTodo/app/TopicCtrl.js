@@ -7,8 +7,8 @@
         if ($scope.topicId !== undefined) {
             $http.get('/api/topic/' + $scope.topicId).
                success(function (data) {
-                   $scope.notes = data.Notes;
-                   $scope.topicName = data.Name;
+                   $scope.notes = data.notes;
+                   $scope.topicName = data.name;
                });
         } else {
             $scope.topicName = 'Choose a topic';
@@ -18,11 +18,11 @@
             var notes = $scope.notes;
             var maxId = 0;
             for (var i = 0; i < notes.length; i++) {
-                if (notes[i].Id > maxId) {
-                    maxId = notes[i].Id;
+                if (notes[i].id > maxId) {
+                    maxId = notes[i].id;
                 }
             }
-            var newNote = { Content: $scope.newNoteText, Id: maxId + 1 };
+            var newNote = { content: $scope.newNoteText, id: maxId + 1 };
 
             $http.post('/api/topic/insert/' + $scope.topicId, newNote).
                 success(function (data) {
@@ -46,7 +46,7 @@
             var confirmed = confirm("Delete?");
 
             if (confirmed) {
-                $http.get('/api/topic/delete/' + $scope.topicId + '/' + item.Id).
+                $http.get('/api/topic/delete/' + $scope.topicId + '/' + item.id).
                     success(function (data) {
                         var index = $scope.notes.indexOf(item);
                         $scope.notes.splice(index, 1);
@@ -66,7 +66,7 @@
         $http.get('/api/topic').
             success(function (data) {
                 for (var i = 0; i < data.length; i++) {
-                    data[i].Slug = generateSlug(data[i].Name);
+                    data[i].slug = generateSlug(data[i].name);
                 }
 
                 $scope.topics = data;

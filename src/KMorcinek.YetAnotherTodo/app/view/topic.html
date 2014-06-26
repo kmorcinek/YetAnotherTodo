@@ -2,14 +2,14 @@
 <div id="main">
     <div id="notes" ng-show="topicId !== undefined">
         <ul class="list-unstyled">
-            <li ng-repeat="note in notes"><span ng-bind-html="note.Content | linky"></span><button class="btn" ng-click="remove(note)">Remove</button></li>
+            <li ng-repeat="note in notes"><span ng-bind-html="note.content | linky"></span><button class="btn" ng-click="remove(note)">Remove</button></li>
         </ul>
         <div><textarea id="new-content-text" autofocus ng-model="newNoteText" ng-keydown="addNoteByEnter($event)" placeholder="Something interesting?"></textarea><button class="btn-primary" ng-click="addNote()" ng-disabled="!newNoteText"><i class="glyphicon-plus"></i>Add</button></div>
     </div>
     <aside id="topics">
         <ul class="list-unstyled">
-            <li ng-repeat="topic in topics | filter:{IsShown:true}">
-                <a ui-sref="topic({topicId: topic.Id, anyTopicName: topic.Slug})">{{topic.Name}}</a>
+            <li ng-repeat="topic in topics | filter:{isShown:true}">
+                <a ui-sref="topic({topicId: topic.id, anyTopicName: topic.slug})">{{topic.name}}</a>
             </li>
         </ul>
     </aside>

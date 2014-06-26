@@ -8,7 +8,7 @@
             });
 
         $scope.addNew = function (text) {
-            var newSlimTopic = { Name: text };
+            var newSlimTopic = { name: text };
 
             $http.post('/api/topic/insert/', newSlimTopic).
                 success(function (data) {
@@ -31,7 +31,7 @@
             var confirmed = confirm("Delete?");
 
             if (confirmed) {
-                $http.get('/api/topic/delete/' + item.Id).
+                $http.get('/api/topic/delete/' + item.id).
                     success(function (data) {
                         var index = $scope.notes.indexOf(item);
                         $scope.notes.splice(index, 1);
