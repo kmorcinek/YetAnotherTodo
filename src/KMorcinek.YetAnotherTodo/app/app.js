@@ -1,19 +1,24 @@
-﻿var yetAnotherTodoConfig = function ($routeProvider) {
-    $routeProvider
-      .when('/:topicId/:anyTopicName', {
-          controller: 'TopicCtrl',
-          templateUrl: 'app/view/topic.html'
-      })
-      .when('/', {
-          controller: 'TopicCtrl',
-          templateUrl: 'app/view/topic.html'
-      })
-    .when('/admin/', {
-        controller: 'AdminCtrl',
-        templateUrl: 'app/view/admin.html'
-    })
-    ;
+﻿var yetAnotherTodoConfig = function($stateProvider, $urlRouterProvider) {
+    
+    $urlRouterProvider.otherwise('/');
+    
+    $stateProvider
+        .state('admin', {
+            url: '/admin',
+            templateUrl: 'app/view/admin.html',
+            controller: 'AdminCtrl',
+        })
+        .state('topic', {
+            url: '/:topicId/:anyTopicName',
+            templateUrl: 'app/view/topic.html',
+            controller: 'TopicCtrl',
+        })
+        .state('home', {
+            url: '/',
+            templateUrl: 'app/view/topic.html',
+            controller: 'TopicCtrl',
+        });
 };
 
-var YetAnotherTodo = angular.module('YetAnotherTodo', ['ngRoute', 'ngSanitize']).
+var YetAnotherTodo = angular.module('YetAnotherTodo', ['ui.router', 'ngSanitize']).
 config(yetAnotherTodoConfig);

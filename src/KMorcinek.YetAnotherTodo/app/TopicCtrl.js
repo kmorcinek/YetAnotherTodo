@@ -1,8 +1,8 @@
 ﻿angular.module('YetAnotherTodo').controller('TopicCtrl',
-    function ($scope, $http, $location, $routeParams) {
+    function ($scope, $http, $location, $stateParams) {
         $scope.notes = [];
     
-        $scope.topicId = $routeParams.topicId;
+        $scope.topicId = $stateParams.topicId;
 
         if ($scope.topicId !== undefined) {
             $http.get('/api/topic/' + $scope.topicId).

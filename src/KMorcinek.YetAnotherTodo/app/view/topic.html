@@ -9,7 +9,7 @@
     <aside id="topics">
         <ul class="list-unstyled">
             <li ng-repeat="topic in topics | filter:{IsShown:true}">
-                <a href="/#/{{topic.Id}}/{{topic.Slug}}">{{topic.Name}}</a>
+                <a ui-sref="topic({topicId: topic.Id, anyTopicName: topic.Slug})">{{topic.Name}}</a>
             </li>
         </ul>
     </aside>
