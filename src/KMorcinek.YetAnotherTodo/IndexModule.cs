@@ -1,12 +1,10 @@
 ﻿using System.Web;
 using KMorcinek.YetAnotherTodo.Models;
-using KMorcinek.YetAnotherTodo.ViewModelFactories;
+using Nancy;
 using Nancy.Security;
 
 namespace KMorcinek.YetAnotherTodo
 {
-    using Nancy;
-
     public class IndexModule : NancyModule
     {
         public IndexModule()
