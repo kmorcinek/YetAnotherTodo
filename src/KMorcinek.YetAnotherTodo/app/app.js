@@ -1,6 +1,6 @@
 ﻿var yetAnotherTodoConfig = function ($routeProvider) {
     $routeProvider
-      .when('/:anyTopicName/:topicId', {
+      .when('/:topicId/:anyTopicName', {
           controller: 'TopicCtrl',
           templateUrl: 'app/view/topic.html'
       })
