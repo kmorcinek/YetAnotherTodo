@@ -95,32 +95,32 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Scripts\AdminCtrl.js" />
-    <Content Include="Content\Scripts\TopicCtrl.js" />
-    <Content Include="Content\Scripts\YetAnotherTodo.js">
+    <Content Include="app\AdminCtrl.js" />
+    <Content Include="app\TopicCtrl.js" />
+    <Content Include="app\app.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Scripts\main.js" />
+    <Content Include="app\helpers.js" />
     <Content Include="Content\Styles\main.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\Scripts\jquery-1.9.1.intellisense.js" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="favicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Properties\PublishProfiles\notestest.angelo.hostingasp.pl - Web Deploy.pubxml.user" />
-    <Content Include="Content\Scripts\bootstrap.js" />
-    <Content Include="Content\Scripts\bootstrap.min.js" />
-    <Content Include="Content\Scripts\jquery-1.9.1.js" />
-    <Content Include="Content\Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Web.config" />
-    <Content Include="Content\view\admin.html">
+    <Content Include="app\view\admin.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\YetAnotherTodo.cshtml" />
-    <Content Include="Content\Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Properties\PublishProfiles\notestest.angelo.hostingasp.pl - Web Deploy.pubxml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
@@ -157,7 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Content\view\topic.html">
+    <Content Include="app\view\topic.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Web.Debug.config">

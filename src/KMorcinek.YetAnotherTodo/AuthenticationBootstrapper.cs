@@ -1,6 +1,7 @@
 ﻿using Nancy;
 using Nancy.Authentication.Basic;
 using Nancy.Bootstrapper;
+using Nancy.Conventions;
 using Nancy.TinyIoc;
 
 namespace KMorcinek.YetAnotherTodo
@@ -15,5 +16,22 @@ namespace KMorcinek.YetAnotherTodo
                 container.Resolve<IUserValidator>(),
                 "MyRealm"));
 		}
+
+        protected override void ConfigureConventions(NancyConventions conventions)
+        {
+            base.ConfigureConventions(conventions);
+
+            var directories = new[] {
+                "/Scripts",
+                "/app",
+            };
+
+            foreach (var directory in directories)
+            {
+                conventions.StaticContentsConventions.Add(
+                    StaticContentConventionBuilder.AddDirectory(directory, directory)
+                );
+            }
+        }
 	}
 }

@@ -1,4 +1,4 @@
-﻿YetAnotherTodo.controller('TopicCtrl',
+﻿angular.module('YetAnotherTodo').controller('TopicCtrl',
     function ($scope, $http, $location, $routeParams) {
         $scope.notes = [];
     

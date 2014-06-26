@@ -1,4 +1,4 @@
-﻿YetAnotherTodo.controller('AdminCtrl',
+﻿angular.module('YetAnotherTodo').controller('AdminCtrl',
     function ($scope, $http) {
         $scope.notes = [];
 

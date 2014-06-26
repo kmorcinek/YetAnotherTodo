@@ -2,15 +2,15 @@
     $routeProvider
       .when('/:anyTopicName/:topicId', {
           controller: 'TopicCtrl',
-          templateUrl: 'Content/view/topic.html'
+          templateUrl: 'app/view/topic.html'
       })
       .when('/', {
           controller: 'TopicCtrl',
-          templateUrl: 'Content/view/topic.html'
+          templateUrl: 'app/view/topic.html'
       })
     .when('/admin/', {
         controller: 'AdminCtrl',
-        templateUrl: 'Content/view/admin.html'
+        templateUrl: 'app/view/admin.html'
     })
     ;
 };
