@@ -1,7 +1,11 @@
 ﻿<h1>Administration</h1>
 <div id="main">
     <div id="notes">
-        <div><textarea ng-model="newText" placeholder="New topic name?"></textarea><button class="btn-primary" ng-click="addNew(newText)" ng-disabled="!newText"><i class="glyphicon-plus"></i>Add</button></div>
+        <form ng-submit="addNew()" name="form">
+            <input ng-model="newText" placeholder="New topic name?" required />
+            <button class="btn-primary" type="submit"><i class="glyphicon-plus"></i>Add</button>
+        </form>
+        <div></div>
         <ul class="list-unstyled" ng-repeat="note in notes.slice().reverse()">
             <li><input type="checkbox" ng-model="note.isShown" ng-change="isShownChange(note)" /><span class="shown-{{note.isShown}}">{{note.name}}</span><button class="btn" ng-click="remove(note)">Remove</button></li>
         </ul>

@@ -7,8 +7,8 @@
                 $scope.notes = data;
             });
 
-        $scope.addNew = function (text) {
-            var newSlimTopic = { name: text };
+        $scope.addNew = function () {
+            var newSlimTopic = { name: $scope.newText };
 
             $http.post('/api/topic/insert/', newSlimTopic).
                 success(function (data) {
