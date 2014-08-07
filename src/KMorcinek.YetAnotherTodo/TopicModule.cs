@@ -19,40 +19,9 @@ namespace KMorcinek.YetAnotherTodo
                 int id = int.Parse(parameters.id.Value);
 
                 var db = DbRepository.GetDb();
-                var topic = db.UseOnceTo().Query<Topic>().Where(t => t.Id == id).Single();
+                var topic = db.UseOnceTo().GetById<Topic>(id);
 
                 return Response.AsJson(topic);
-            };
-
-            Post["/insert/{topicId}"] = parameters =>
-            {
-                int topicId = int.Parse(parameters.topicId.Value);
-                var note = this.Bind<Note>();
-
-                var db = DbRepository.GetDb();
-
-                var topic = db.UseOnceTo().Query<Topic>().Where(t => t.Id == topicId).Single();
-
-                topic.Notes.Add(note);
-
-                db.UseOnceTo().Update(topic);
-
-                return Response.AsJson(true);
-            };
-
-            Get["/delete/{topicId}/{noteId}"] = parameters =>
-            {
-                int topicId = int.Parse(parameters.topicId.Value);
-                int noteId = int.Parse(parameters.noteId.Value);
-
-                var db = DbRepository.GetDb();
-                var topic = db.UseOnceTo().Query<Topic>().Where(t => t.Id == topicId).Single();
-
-                topic.Notes.RemoveAll(n => n.Id == noteId);
-
-                db.UseOnceTo().Update(topic);
-
-                return Response.AsJson(true);
             };
 
             Get["/"] = _ =>
@@ -78,7 +47,7 @@ namespace KMorcinek.YetAnotherTodo
 
                 var db = DbRepository.GetDb();
 
-                db.UseOnceTo().InsertAs<Topic>(topic);
+                db.UseOnceTo().Insert(topic);
 
                 var slimTopicToReturn = new SlimTopic(topic);
 
@@ -91,7 +60,7 @@ namespace KMorcinek.YetAnotherTodo
 
                 var db = DbRepository.GetDb();
 
-                var topic = db.UseOnceTo().Query<Topic>().Where(t => t.Id == slimTopic.Id).Single();
+                var topic = db.UseOnceTo().GetById<Topic>(slimTopic.Id);
 
                 topic.Name = slimTopic.Name;
                 topic.IsShown = slimTopic.IsShown;
@@ -108,6 +77,37 @@ namespace KMorcinek.YetAnotherTodo
                 var db = DbRepository.GetDb();
 
                 db.UseOnceTo().DeleteById<Topic>(topicId);
+
+                return Response.AsJson(true);
+            };
+
+            Post["/insert/{topicId}"] = parameters =>
+            {
+                int topicId = int.Parse(parameters.topicId.Value);
+                var note = this.Bind<Note>();
+
+                var db = DbRepository.GetDb();
+
+                var topic = db.UseOnceTo().GetById<Topic>(topicId);
+
+                topic.Notes.Add(note);
+
+                db.UseOnceTo().Update(topic);
+
+                return Response.AsJson(true);
+            };
+
+            Get["/delete/{topicId}/{noteId}"] = parameters =>
+            {
+                int topicId = int.Parse(parameters.topicId.Value);
+                int noteId = int.Parse(parameters.noteId.Value);
+
+                var db = DbRepository.GetDb();
+                var topic = db.UseOnceTo().GetById<Topic>(topicId);
+
+                topic.Notes.RemoveAll(n => n.Id == noteId);
+
+                db.UseOnceTo().Update(topic);
 
                 return Response.AsJson(true);
             };
