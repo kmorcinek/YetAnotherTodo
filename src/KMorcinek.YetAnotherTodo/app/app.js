@@ -22,5 +22,5 @@
         });
 };
 
-var YetAnotherTodo = angular.module('YetAnotherTodo', ['ui.router', 'ngSanitize']).
+var YetAnotherTodo = angular.module('YetAnotherTodo', ['ui.router', 'ngSanitize', 'ngResource']).
 config(yetAnotherTodoConfig);

@@ -1,15 +1,14 @@
 ﻿angular.module('YetAnotherTodo').controller('TopicCtrl',
-    function ($scope, $http, $location, $stateParams) {
+    function ($scope, $http, $location, $stateParams, Topics) {
         $scope.notes = [];
     
         $scope.topicId = $stateParams.topicId;
 
         if ($scope.topicId !== undefined) {
-            $http.get('/api/topic/' + $scope.topicId).
-               success(function (data) {
-                   $scope.notes = data.notes;
-                   $scope.topicName = data.name;
-               });
+            $scope.notes = Topics.get({id: $scope.topicId}, function(data){
+                $scope.notes = data.notes;
+                $scope.topicName = data.name;
+            });
         } else {
             $scope.topicName = 'Choose a topic';
         }
@@ -24,7 +23,7 @@
             }
             var newNote = { content: $scope.newNoteText, id: maxId + 1 };
 
-            $http.post('/api/topic/insert/' + $scope.topicId, newNote).
+            $http.post('/api/topics/insert/' + $scope.topicId, newNote).
                 success(function (data) {
                     $scope.notes.push(newNote);
                     $scope.newNoteText = "";
@@ -46,7 +45,7 @@
             var confirmed = confirm("Delete?");
 
             if (confirmed) {
-                $http.get('/api/topic/delete/' + $scope.topicId + '/' + item.id).
+                $http.get('/api/topics/delete/' + $scope.topicId + '/' + item.id).
                     success(function (data) {
                         var index = $scope.notes.indexOf(item);
                         $scope.notes.splice(index, 1);
@@ -63,15 +62,14 @@
             $('#new-content-text').focus();
         }
 
-        $http.get('/api/topic').
-            success(function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    data[i].slug = generateSlug(data[i].name);
-                }
+        Topics.query(function(data){
+            for (var i = 0; i < data.length; i++) {
+                data[i].slug = generateSlug(data[i].name);
+            }
 
-                $scope.topics = data;
+            $scope.topics = data;
 
-                setFocusOnNewNote();
-            });
+            setFocusOnNewNote();
+        });
     }
 );

@@ -1,44 +1,30 @@
 ﻿angular.module('YetAnotherTodo').controller('AdminCtrl',
-    function ($scope, $http) {
-        $scope.notes = [];
-
-        $http.get('/api/topic').
-            success(function (data) {
-                $scope.notes = data;
-            });
+    function ($scope, Topics) {
+        $scope.notes = Topics.query();
 
         $scope.addNew = function () {
-            var newSlimTopic = { name: $scope.newText };
+            var newTopic = { name: $scope.newText };
 
-            $http.post('/api/topic/insert/', newSlimTopic).
-                success(function (data) {
-                    $scope.notes.push(data);
-                    $scope.newText = "";
-                })
-                .error(function (data, status, headers, config) {
-                    console.log(data);
-                });
+            Topics.save({}, newTopic, function(data){
+                newTopic.id = data.id;
+                newTopic.isShown = true;
+                $scope.notes.push(newTopic);
+                $scope.newText = "";
+            });
         };
 
         $scope.isShownChange = function (item) {
-            $http.post('/api/topic/update/', item)
-                .error(function (data, status, headers, config) {
-                    console.log(data);
-                });
+            Topics.save({ id: item.id }, item);
         };
 
         $scope.remove = function (item) {
             var confirmed = confirm("Delete?");
 
             if (confirmed) {
-                $http.get('/api/topic/delete/' + item.id).
-                    success(function (data) {
-                        var index = $scope.notes.indexOf(item);
-                        $scope.notes.splice(index, 1);
-                    })
-                    .error(function (data, status, headers, config) {
-                        console.log(data);
-                    });
+                Topics.remove({ id: item.id}, function () {
+                    var index = $scope.notes.indexOf(item);
+                    $scope.notes.splice(index, 1);
+                });
             }
         };
     }

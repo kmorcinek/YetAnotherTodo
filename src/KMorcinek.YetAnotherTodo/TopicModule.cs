@@ -4,25 +4,16 @@ using KMorcinek.YetAnotherTodo.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Security;
+using KMorcinek.YetAnotherTodo.Extensions;
 
 namespace KMorcinek.YetAnotherTodo
 {
     public class TopicModule : NancyModule
     {
         public TopicModule()
-            : base("/api/topic")
+            : base("/api/topics")
         {
             this.RequiresAuthentication();
-
-            Get["/{id}"] = parameters =>
-            {
-                int id = int.Parse(parameters.id.Value);
-
-                var db = DbRepository.GetDb();
-                var topic = db.UseOnceTo().GetById<Topic>(id);
-
-                return Response.AsJson(topic);
-            };
 
             Get["/"] = _ =>
             {
@@ -32,9 +23,20 @@ namespace KMorcinek.YetAnotherTodo
                 var slimTopics = topics.Select(t => new SlimTopic(t));
 
                 return Response.AsJson(slimTopics);
+
             };
 
-            Post["/insert"] = _ =>
+            Get["/{id:int}"] = _ =>
+            {
+                var id = (int)_.id.Value;
+
+                var db = DbRepository.GetDb();
+                var topic = db.UseOnceTo().GetById<Topic>(id);
+
+                return Response.AsJson(topic);
+            };
+
+            Post["/"] = _ =>
             {
                 var slimTopic = this.Bind<SlimTopic>();
 
@@ -49,36 +51,32 @@ namespace KMorcinek.YetAnotherTodo
 
                 db.UseOnceTo().Insert(topic);
 
-                var slimTopicToReturn = new SlimTopic(topic);
-
-                return Response.AsJson(slimTopicToReturn);
+                return Response.AsJson(new { id = topic.Id });
             };
 
-            Post["/update"] = _ =>
+            Post["/{id:int}"] = _ =>
             {
-                var slimTopic = this.Bind<SlimTopic>();
+                var id = (int)_.id.Value;
 
                 var db = DbRepository.GetDb();
+                var topic = db.UseOnceTo().GetById<Topic>(id);
 
-                var topic = db.UseOnceTo().GetById<Topic>(slimTopic.Id);
-
-                topic.Name = slimTopic.Name;
-                topic.IsShown = slimTopic.IsShown;
+                this.BindTo(topic, ReflectionHelper.GetPropertyName<Topic>(p => p.Notes));
 
                 db.UseOnceTo().Update(topic);
 
-                return Response.AsJson(true);
+                return HttpStatusCode.OK;
             };
 
-            Get["/delete/{topicId}"] = parameters =>
+            Delete["/{id:int}"] = _ =>
             {
-                int topicId = int.Parse(parameters.topicId.Value);
+                var id = (int)_.id.Value;
 
                 var db = DbRepository.GetDb();
 
-                db.UseOnceTo().DeleteById<Topic>(topicId);
+                db.UseOnceTo().DeleteById<Topic>(id);
 
-                return Response.AsJson(true);
+                return HttpStatusCode.NoContent;
             };
 
             Post["/insert/{topicId}"] = parameters =>
