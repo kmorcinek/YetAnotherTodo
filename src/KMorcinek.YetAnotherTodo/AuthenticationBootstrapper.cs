@@ -14,7 +14,7 @@ namespace KMorcinek.YetAnotherTodo
 
             pipelines.EnableBasicAuthentication(new BasicAuthenticationConfiguration(
                 container.Resolve<IUserValidator>(),
-                "MyRealm"));
+                "demo:demo"));
 		}
 
         protected override void ConfigureConventions(NancyConventions conventions)
