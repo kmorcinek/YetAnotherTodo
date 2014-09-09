@@ -98,6 +98,7 @@
     <None Include="App_Data\user.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="app\resources\TopicNotes.js" />
     <Content Include="app\resources\Topics.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -158,6 +159,7 @@
     <Compile Include="Models\SlimTopic.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TopicNotesModule.cs" />
     <Compile Include="TopicModule.cs" />
     <Compile Include="UserValidator.cs" />
   </ItemGroup>

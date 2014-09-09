@@ -1,5 +1,5 @@
 ﻿angular.module('YetAnotherTodo').controller('TopicCtrl',
-    function ($scope, $http, $location, $stateParams, Topics) {
+    function ($scope, $location, $stateParams, Topics, TopicNotes) {
         $scope.notes = [];
     
         $scope.topicId = $stateParams.topicId;
@@ -23,16 +23,12 @@
             }
             var newNote = { content: $scope.newNoteText, id: maxId + 1 };
 
-            $http.post('/api/topics/insert/' + $scope.topicId, newNote).
-                success(function (data) {
-                    $scope.notes.push(newNote);
-                    $scope.newNoteText = "";
+            TopicNotes.save({topicId: $scope.topicId}, newNote, function () {
+                $scope.notes.push(newNote);
+                $scope.newNoteText = "";
 
-                    setFocusOnNewNote();
-                })
-                .error(function (data, status, headers, config) {
-                    console.log(data);
-                });
+                setFocusOnNewNote();
+            });
         };
 
         $scope.addNoteByEnter = function(e) {
@@ -45,14 +41,10 @@
             var confirmed = confirm("Delete?");
 
             if (confirmed) {
-                $http.get('/api/topics/delete/' + $scope.topicId + '/' + item.id).
-                    success(function (data) {
-                        var index = $scope.notes.indexOf(item);
-                        $scope.notes.splice(index, 1);
-                    })
-                    .error(function (data, status, headers, config) {
-                        console.log(data);
-                    });
+                TopicNotes.remove({topicId: $scope.topicId, noteId: item.id}, function () {
+                    var index = $scope.notes.indexOf(item);
+                    $scope.notes.splice(index, 1);
+                });
             }
         };
 

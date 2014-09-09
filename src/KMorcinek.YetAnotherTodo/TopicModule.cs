@@ -78,37 +78,6 @@ namespace KMorcinek.YetAnotherTodo
 
                 return HttpStatusCode.NoContent;
             };
-
-            Post["/insert/{topicId}"] = parameters =>
-            {
-                int topicId = int.Parse(parameters.topicId.Value);
-                var note = this.Bind<Note>();
-
-                var db = DbRepository.GetDb();
-
-                var topic = db.UseOnceTo().GetById<Topic>(topicId);
-
-                topic.Notes.Add(note);
-
-                db.UseOnceTo().Update(topic);
-
-                return Response.AsJson(true);
-            };
-
-            Get["/delete/{topicId}/{noteId}"] = parameters =>
-            {
-                int topicId = int.Parse(parameters.topicId.Value);
-                int noteId = int.Parse(parameters.noteId.Value);
-
-                var db = DbRepository.GetDb();
-                var topic = db.UseOnceTo().GetById<Topic>(topicId);
-
-                topic.Notes.RemoveAll(n => n.Id == noteId);
-
-                db.UseOnceTo().Update(topic);
-
-                return Response.AsJson(true);
-            };
         }
     }
 }
