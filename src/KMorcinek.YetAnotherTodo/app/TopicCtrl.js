@@ -1,14 +1,19 @@
 ﻿angular.module('YetAnotherTodo').controller('TopicCtrl',
-    function ($scope, $location, $stateParams, TopicsService, TopicNotes) {
+    function ($scope, $location, $stateParams, TopicsService, TopicNotes, LastTopicIdService) {
         $scope.notes = [];
     
         $scope.topicId = $stateParams.topicId;
 
-        if ($scope.topicId !== undefined) {
+        var lastId = $scope.topicId || LastTopicIdService.get();
+        if (lastId !== undefined) {
+            $scope.topicId = lastId;
+            
             TopicsService.get($scope.topicId, function(data){
                 $scope.notes = data.notes;
                 $scope.topicName = data.name;
             });
+
+            LastTopicIdService.set($scope.topicId);
         } else {
             $scope.topicName = 'Choose a topic';
         }

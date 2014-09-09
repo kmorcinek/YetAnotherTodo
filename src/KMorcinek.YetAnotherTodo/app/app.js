@@ -1,4 +1,4 @@
-﻿var yetAnotherTodoConfig = function ($stateProvider, $urlRouterProvider, $locationProvider) {
+﻿var yetAnotherTodoConfig = function ($stateProvider, $urlRouterProvider, $locationProvider, localStorageServiceProvider) {
     
     $locationProvider.html5Mode(true);
 
@@ -20,7 +20,10 @@
             templateUrl: '/app/view/topic.html',
             controller: 'TopicCtrl',
         });
+
+    localStorageServiceProvider.cookie.expiry = 365;
+    localStorageServiceProvider.prefix = window.location.hostname;
 };
 
-var YetAnotherTodo = angular.module('YetAnotherTodo', ['ui.router', 'ngSanitize', 'ngResource']).
+var YetAnotherTodo = angular.module('YetAnotherTodo', ['ui.router', 'ngSanitize', 'ngResource', 'LocalStorageModule']).
 config(yetAnotherTodoConfig);
