@@ -6,11 +6,4 @@
             <li><span ng-bind-html="note.content | linky"></span><button class="btn" ng-click="remove(note)">Remove</button></li>
         </ul>
     </div>
-    <aside id="topics">
-        <ul class="list-unstyled" ng-repeat="topic in topics | filter:{isShown:true}">
-            <li>
-                <a ui-sref="topic({topicId: topic.id, anyTopicName: topic.slug})">{{topic.name}}</a>
-            </li>
-        </ul>
-    </aside>
 </div>

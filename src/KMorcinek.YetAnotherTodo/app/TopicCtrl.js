@@ -1,11 +1,11 @@
 ﻿angular.module('YetAnotherTodo').controller('TopicCtrl',
-    function ($scope, $location, $stateParams, Topics, TopicNotes) {
+    function ($scope, $location, $stateParams, TopicsService, TopicNotes) {
         $scope.notes = [];
     
         $scope.topicId = $stateParams.topicId;
 
         if ($scope.topicId !== undefined) {
-            $scope.notes = Topics.get({id: $scope.topicId}, function(data){
+            TopicsService.get($scope.topicId, function(data){
                 $scope.notes = data.notes;
                 $scope.topicName = data.name;
             });
@@ -48,20 +48,10 @@
             }
         };
 
-        $scope.topics = [];
-
         var setFocusOnNewNote = function () {
             $('#new-content-text').focus();
         }
 
-        Topics.query(function(data){
-            for (var i = 0; i < data.length; i++) {
-                data[i].slug = generateSlug(data[i].name);
-            }
-
-            $scope.topics = data;
-
-            setFocusOnNewNote();
-        });
+        setFocusOnNewNote();
     }
 );

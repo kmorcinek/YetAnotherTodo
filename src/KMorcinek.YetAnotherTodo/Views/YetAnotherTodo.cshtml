@@ -12,6 +12,14 @@
 
     <div ui-view></div>
 
+    <aside id="topics" ng-controller="TopicsListCtrl">
+        <ul class="list-unstyled" ng-repeat="topic in topics | filter:{isShown:true}">
+            <li>
+                <a ui-sref="topic({topicId: topic.id, anyTopicName: topic.slug})">{{topic.name}}</a>
+            </li>
+        </ul>
+    </aside>
+
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
@@ -23,6 +31,8 @@
     <script src="~/app/resources/TopicNotes.js"></script>
     <script src="~/app/AdminCtrl.js"></script>
     <script src="~/app/TopicCtrl.js"></script>
+    <script src="~/app/TopicsListCtrl.js"></script>
+    <script src="~/app/services/TopicsService.js"></script>
     <script src="~/app/helpers.js"></script>
 
 </body>

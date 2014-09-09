@@ -97,6 +97,8 @@
     <None Include="App_Data\user.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="app\services\TopicsService.js" />
+    <Content Include="app\TopicsListCtrl.js" />
     <Content Include="app\resources\TopicNotes.js" />
     <Content Include="app\resources\Topics.js" />
     <Content Include="Content\bootstrap-theme.css" />
