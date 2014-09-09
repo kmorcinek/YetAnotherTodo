@@ -6,7 +6,7 @@ using Nancy.TinyIoc;
 
 namespace KMorcinek.YetAnotherTodo
 {
-    public class AuthenticationBootstrapper : DefaultNancyBootstrapper
+    public class Bootstrapper : DefaultNancyBootstrapper
 	{
 		protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
 		{
@@ -15,6 +15,8 @@ namespace KMorcinek.YetAnotherTodo
             pipelines.EnableBasicAuthentication(new BasicAuthenticationConfiguration(
                 container.Resolve<IUserValidator>(),
                 "demo:demo"));
+
+            DbRepository.Initialize();
 		}
 
         protected override void ConfigureConventions(NancyConventions conventions)

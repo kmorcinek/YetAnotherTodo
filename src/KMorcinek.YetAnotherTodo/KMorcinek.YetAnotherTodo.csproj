@@ -94,7 +94,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Data\NotesDB.sdf" />
     <None Include="App_Data\user.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -150,7 +149,7 @@
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationBootstrapper.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="DbRepository.cs" />
     <Compile Include="DemoUserIdentity.cs" />
     <Compile Include="Extensions\ReflectionHelper.cs" />
