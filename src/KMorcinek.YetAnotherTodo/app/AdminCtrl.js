@@ -1,15 +1,10 @@
 ﻿angular.module('YetAnotherTodo').controller('AdminCtrl',
-    function ($scope, Topics) {
+    function ($scope, $location, Topics) {
         $scope.notes = Topics.query();
 
         $scope.addNew = function () {
-            var newTopic = { name: $scope.newText };
-
-            Topics.save({}, newTopic, function(data){
-                newTopic.id = data.id;
-                newTopic.isShown = true;
-                $scope.notes.push(newTopic);
-                $scope.newText = "";
+            Topics.save({}, { name: $scope.newText }, function(data){
+                $location.path('/' + data.id + '/' + generateSlug($scope.newText));
             });
         };
 
