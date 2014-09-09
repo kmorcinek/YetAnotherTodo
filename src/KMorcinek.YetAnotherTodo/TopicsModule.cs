@@ -8,9 +8,9 @@ using KMorcinek.YetAnotherTodo.Extensions;
 
 namespace KMorcinek.YetAnotherTodo
 {
-    public class TopicModule : NancyModule
+    public class TopicsModule : NancyModule
     {
-        public TopicModule()
+        public TopicsModule()
             : base("/api/topics")
         {
             this.RequiresAuthentication();
@@ -23,12 +23,11 @@ namespace KMorcinek.YetAnotherTodo
                 var slimTopics = topics.Select(t => new SlimTopic(t));
 
                 return Response.AsJson(slimTopics);
-
             };
 
-            Get["/{id:int}"] = _ =>
+            Get["/{id:int}"] = parameters =>
             {
-                var id = (int)_.id.Value;
+                var id = (int)parameters.id.Value;
 
                 var db = DbRepository.GetDb();
                 var topic = db.UseOnceTo().GetById<Topic>(id);
@@ -54,9 +53,9 @@ namespace KMorcinek.YetAnotherTodo
                 return Response.AsJson(new { id = topic.Id });
             };
 
-            Post["/{id:int}"] = _ =>
+            Post["/{id:int}"] = parameters =>
             {
-                var id = (int)_.id.Value;
+                var id = (int)parameters.id.Value;
 
                 var db = DbRepository.GetDb();
                 var topic = db.UseOnceTo().GetById<Topic>(id);
@@ -68,9 +67,9 @@ namespace KMorcinek.YetAnotherTodo
                 return HttpStatusCode.OK;
             };
 
-            Delete["/{id:int}"] = _ =>
+            Delete["/{id:int}"] = parameters =>
             {
-                var id = (int)_.id.Value;
+                var id = (int)parameters.id.Value;
 
                 var db = DbRepository.GetDb();
 
