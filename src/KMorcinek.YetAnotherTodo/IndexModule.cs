@@ -2,6 +2,7 @@
 using KMorcinek.YetAnotherTodo.Models;
 using Nancy;
 using Nancy.Security;
+using KMorcinek.YetAnotherTodo.Extensions;
 
 namespace KMorcinek.YetAnotherTodo
 {
@@ -9,13 +10,10 @@ namespace KMorcinek.YetAnotherTodo
     {
         dynamic IndexPage()
         {
-            var db = DbRepository.GetDb();
-            var firstTopic = db.UseOnceTo().Query<Topic>().OrderBy(t => t.Id).First();
-
-            if (firstTopic == null)
-                throw new HttpException("No topics created yet.");
-
-            return View["YetAnotherTodo"];
+            return View["YetAnotherTodo", new
+            {
+                ProductVersion = AssemblyHelper.GetProductVersion(),
+            }];
         }
 
         public IndexModule()

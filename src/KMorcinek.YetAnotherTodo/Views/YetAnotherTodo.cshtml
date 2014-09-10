@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -37,5 +39,6 @@
     <script src="~/app/services/LastTopicIdService.js"></script>
     <script src="~/app/helpers.js"></script>
 
+    <!-- ProductVersion: @Model.ProductVersion -->
 </body>
 </html>
