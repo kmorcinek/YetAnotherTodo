@@ -1,0 +1,19 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Notes</title>
+
+    <base href="/">
+    <link href="/Content/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/Content/Styles/main.css" media="screen" />
+</head>
+<body ng-app="YetAnotherTodo">
+    
+    @RenderBody()
+
+    <!-- ProductVersion: @Model.ProductVersion -->
+</body>
+</html>

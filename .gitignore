@@ -174,3 +174,5 @@ $RECYCLE.BIN/
 
 # SASS Compiler cache
 .sass-cache
+
+**/*.sln.ide

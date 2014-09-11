@@ -1,46 +1,35 @@
 ﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Notes</title>
-    
-    <base href="/">
+@{
+    Layout = "layout.cshtml";
+}
 
-    <link href="/Content/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/Content/Styles/main.css" media="screen" />
-</head>
-<body ng-app="YetAnotherTodo">
-    <nav><a ui-sref="home">Notes</a> <a ui-sref="admin">Administration</a></nav>
+<nav><a ui-sref="home">Notes</a> <a ui-sref="admin">Administration</a></nav>
+<form action="/search"><input name="searchTerm" /><button type="submit">Search</button></form>
 
-    <div ui-view></div>
+<div ui-view></div>
 
-    <aside id="topics" ng-controller="TopicsListCtrl">
-        <ul class="list-unstyled" ng-repeat="topic in topics | filter:{isShown:true}">
-            <li>
-                <a ui-sref="topic({topicId: topic.id, anyTopicName: topic.slug})">{{topic.name}}</a>
-            </li>
-        </ul>
-    </aside>
+<aside id="topics" ng-controller="TopicsListCtrl">
+    <ul class="list-unstyled" ng-repeat="topic in topics | filter:{isShown:true}">
+        <li>
+            <a ui-sref="topic({topicId: topic.id, anyTopicName: topic.slug})">{{topic.name}}</a>
+        </li>
+    </ul>
+</aside>
 
-    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/angular-sanitize.js"></script>
-    <script src="~/Scripts/angular-resource.js"></script>
-    <script src="~/Scripts/angular-ui-router.js"></script>
-    <script src="~/Scripts/angular-local-storage.js"></script>
-    <script src="~/app/app.js"></script>
-    <script src="~/app/resources/Topics.js"></script>
-    <script src="~/app/resources/TopicNotes.js"></script>
-    <script src="~/app/AdminCtrl.js"></script>
-    <script src="~/app/TopicCtrl.js"></script>
-    <script src="~/app/TopicsListCtrl.js"></script>
-    <script src="~/app/services/TopicsService.js"></script>
-    <script src="~/app/services/LastTopicIdService.js"></script>
-    <script src="~/app/helpers.js"></script>
-
-    <!-- ProductVersion: @Model.ProductVersion -->
-</body>
-</html>
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/angular-sanitize.js"></script>
+<script src="~/Scripts/angular-resource.js"></script>
+<script src="~/Scripts/angular-ui-router.js"></script>
+<script src="~/Scripts/angular-local-storage.js"></script>
+<script src="~/app/app.js"></script>
+<script src="~/app/resources/Topics.js"></script>
+<script src="~/app/resources/TopicNotes.js"></script>
+<script src="~/app/AdminCtrl.js"></script>
+<script src="~/app/TopicCtrl.js"></script>
+<script src="~/app/TopicsListCtrl.js"></script>
+<script src="~/app/services/TopicsFactory.js"></script>
+<script src="~/app/services/LastTopicIdService.js"></script>
+<script src="~/app/services/SlugGeneratorService.js"></script>

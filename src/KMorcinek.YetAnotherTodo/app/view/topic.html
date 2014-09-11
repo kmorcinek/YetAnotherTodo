@@ -1,7 +1,10 @@
 ﻿<h1>{{topicName}}</h1>
 <div id="main">
     <div id="notes" ng-show="topicId !== undefined">
-        <div><textarea id="new-content-text" autofocus ng-model="newNoteText" ng-keydown="addNoteByEnter($event)" placeholder="Something interesting?"></textarea><button class="btn-primary" ng-click="addNote()" ng-disabled="!newNoteText"><i class="glyphicon-plus"></i>Add</button></div>
+        <div>
+            <textarea id="new-content-text" autofocus ng-model="newNoteText" ng-keydown="addNoteByEnter($event)" placeholder="Something interesting?"></textarea>
+            <button class="btn btn-primary" ng-click="addNote()" ng-disabled="!newNoteText"><i class="glyphicon glyphicon-plus"></i> Add</button>
+        </div>
         <ul class="list-unstyled" ng-repeat="note in notes.slice().reverse()">
             <li><span ng-bind-html="note.content | linky"></span><button class="btn" ng-click="remove(note)">Remove</button></li>
         </ul>

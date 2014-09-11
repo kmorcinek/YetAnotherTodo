@@ -5,7 +5,6 @@
             <input ng-model="newText" placeholder="New topic name?" required />
             <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-plus"></i>Add</button>
         </form>
-        <div></div>
         <ul class="list-unstyled" ng-repeat="topic in topics">
             <li><input type="checkbox" ng-model="topic.isShown" ng-change="isShownChange(topic)" /><span class="shown-{{topic.isShown}}">{{topic.name}}</span><button class="btn" ng-click="remove(topic)">Remove</button></li>
         </ul>
