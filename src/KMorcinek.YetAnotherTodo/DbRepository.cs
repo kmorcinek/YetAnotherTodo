@@ -52,6 +52,7 @@ namespace KMorcinek.YetAnotherTodo
                 db.UseOnceTo().Insert(forNow);
                 db.UseOnceTo().Insert(forLate);
                 db.UseOnceTo().Insert(obsoleteStuff);
+
             }
         }
     }

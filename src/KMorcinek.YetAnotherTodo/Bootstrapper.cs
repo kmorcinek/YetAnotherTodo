@@ -4,7 +4,7 @@ using Nancy.Bootstrapper;
 using Nancy.Conventions;
 using Nancy.TinyIoc;
 
-namespace KMorcinek.YetAnotherTodo 
+namespace KMorcinek.YetAnotherTodo
 {
     public class Bootstrapper : DefaultNancyBootstrapper
 	{
