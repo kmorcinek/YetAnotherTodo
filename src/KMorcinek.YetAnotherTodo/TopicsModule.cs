@@ -21,44 +21,40 @@ namespace KMorcinek.YetAnotherTodo
             {
                 using (var todoModelContext = new TodoModelContext())
                 {
-                    var topics = todoModelContext.Topics.ToList();
+                    var topics = todoModelContext.Topics.ToList().Select(t => new SlimTopic(t));
                     return Response.AsJson(topics);
                 }
-
-                //var db = DbRepository.GetDb();
-                //var topics = db.UseOnceTo().Query<Topic>().ToArray();
-
-                //var slimTopics = topics.Select(t => new SlimTopic(t));
-
-                //return Response.AsJson(slimTopics);
             };
 
             Get["/{id:int}"] = parameters =>
             {
-                var id = (int)parameters.id.Value;
+                using (var todoModelContext = new TodoModelContext())
+                {
+                    var id = (int)parameters.id.Value;
 
-                var db = DbRepository.GetDb();
-                var topic = db.UseOnceTo().GetById<Topic>(id);
+                    var topic = todoModelContext.Topics.SingleOrDefault(d => d.TopicId == id);
 
-                return Response.AsJson(topic);
+                    return Response.AsJson(topic);
+                }
             };
 
             Post["/"] = _ =>
             {
-                var slimTopic = this.Bind<SlimTopic>();
-
-                var topic = new Topic
+                using (var todoModelContext = new TodoModelContext())
                 {
-                    Name = slimTopic.Name,
-                    Notes = new List<Note>(),
-                    IsShown = true,
-                };
+                    var slimTopic = this.Bind<SlimTopic>();
 
-                var db = DbRepository.GetDb();
+                    var topic = new DomainClasses.Topic
+                    {
+                        Name = slimTopic.Name,
+                        IsShown = true,
+                    };
 
-                db.UseOnceTo().Insert(topic);
+                    todoModelContext.Topics.Add(topic);
+                    todoModelContext.SaveChanges();
 
-                return Response.AsJson(new { id = topic.Id });
+                    return Response.AsJson(new { id = topic.TopicId });
+                }
             };
 
             Post["/{id:int}"] = parameters =>

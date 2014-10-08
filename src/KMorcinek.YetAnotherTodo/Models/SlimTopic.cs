@@ -11,9 +11,9 @@
             
         }
 
-        public SlimTopic(Topic topic)
+        public SlimTopic(DomainClasses.Topic topic)
         {
-            Id = topic.Id;
+            Id = topic.TopicId;
             Name = topic.Name;
             IsShown = topic.IsShown;
         }
