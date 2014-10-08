@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.SqlServerCe;
 using System.Linq;
+using KMorcinek.YetAnotherTodo.DataLayer;
 using KMorcinek.YetAnotherTodo.Models;
 using Nancy;
 using Nancy.ModelBinding;
@@ -17,12 +19,18 @@ namespace KMorcinek.YetAnotherTodo
 
             Get["/"] = _ =>
             {
-                var db = DbRepository.GetDb();
-                var topics = db.UseOnceTo().Query<Topic>().ToArray();
+                using (var todoModelContext = new TodoModelContext())
+                {
+                    var topics = todoModelContext.Topics.ToList();
+                    return Response.AsJson(topics);
+                }
 
-                var slimTopics = topics.Select(t => new SlimTopic(t));
+                //var db = DbRepository.GetDb();
+                //var topics = db.UseOnceTo().Query<Topic>().ToArray();
 
-                return Response.AsJson(slimTopics);
+                //var slimTopics = topics.Select(t => new SlimTopic(t));
+
+                //return Response.AsJson(slimTopics);
             };
 
             Get["/{id:int}"] = parameters =>
