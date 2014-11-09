@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlServerCe;
-using System.Linq;
+﻿using System.Linq;
+using AutoMapper;
 using KMorcinek.YetAnotherTodo.DataLayer;
 using KMorcinek.YetAnotherTodo.Models;
 using Nancy;
@@ -12,6 +11,8 @@ namespace KMorcinek.YetAnotherTodo
 {
     public class TopicsModule : NancyModule
     {
+        IMappingEngine mapper = Mapper.Engine;
+        
         public TopicsModule()
             : base("/api/topics")
         {
@@ -34,7 +35,9 @@ namespace KMorcinek.YetAnotherTodo
 
                     var topic = todoModelContext.Topics.SingleOrDefault(d => d.TopicId == id);
 
-                    return Response.AsJson(topic);
+                    Topic fromDomainModel = mapper.Map<Topic>(topic);
+
+                    return Response.AsJson(fromDomainModel);
                 }
             };
 
@@ -64,11 +67,12 @@ namespace KMorcinek.YetAnotherTodo
                     var id = (int)parameters.id.Value;
 
                     DomainClasses.Topic topic = todoModelContext.Topics.Find(id);
-                    var db = DbRepository.GetDb();
 
-                    this.BindTo(topic, ReflectionHelper.GetPropertyName<Topic>(p => p.Notes));
+                    this.BindTo(topic, 
+                        ReflectionHelper.GetPropertyName<DomainClasses.Topic>(p => p.Notes), 
+                        ReflectionHelper.GetPropertyName<DomainClasses.Topic>(p => p.TopicId));
 
-                    db.UseOnceTo().Update(topic);
+                    todoModelContext.SaveChanges();
 
                     return HttpStatusCode.OK; 
                 }

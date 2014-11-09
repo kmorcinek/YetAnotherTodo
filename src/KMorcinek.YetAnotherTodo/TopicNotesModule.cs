@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using KMorcinek.YetAnotherTodo.Models;
+﻿using KMorcinek.YetAnotherTodo.DataLayer;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Security;
-using KMorcinek.YetAnotherTodo.Extensions;
+using Note = KMorcinek.YetAnotherTodo.DomainClasses.Note;
 
 namespace KMorcinek.YetAnotherTodo
 {
@@ -15,35 +13,40 @@ namespace KMorcinek.YetAnotherTodo
         {
             this.RequiresAuthentication();
 
-            Post[""] = parameters =>
+            Post["/"] = parameters =>
             {
-                var topicId = (int)parameters.topicId.Value;
-                var note = this.Bind<Note>();
+                using (var todoModelContext = new TodoModelContext())
+                {
+                    var topicId = (int)parameters.topicId.Value;
+                    var note = this.Bind<DomainClasses.Note>();
 
-                var db = DbRepository.GetDb();
+                    DomainClasses.Topic topic = todoModelContext.Topics.Find(topicId);
 
-                var topic = db.UseOnceTo().GetById<Topic>(topicId);
+                    topic.Notes.Add(note);
+                    todoModelContext.Notes.Add(note);
 
-                topic.Notes.Add(note);
+                    todoModelContext.SaveChanges();
 
-                db.UseOnceTo().Update(topic);
-
-                return HttpStatusCode.Created;
+                    return HttpStatusCode.Created; 
+                }
             };
 
             Delete["/{noteId:int}"] = parameters =>
             {
-                var topicId = (int)parameters.topicId.Value;
-                var noteId = (int)parameters.noteId.Value;
+                using (var todoModelContext = new TodoModelContext())
+                {
+                    var topicId = (int)parameters.topicId.Value;
+                    var noteId = (int)parameters.noteId.Value;
 
-                var db = DbRepository.GetDb();
-                var topic = db.UseOnceTo().GetById<Topic>(topicId);
+                    DomainClasses.Topic topic = todoModelContext.Topics.Find(topicId);
+                    Note note = todoModelContext.Notes.Find(noteId);
+                    topic.Notes.Remove(note);
+                    todoModelContext.Notes.Remove(note);
 
-                topic.Notes.RemoveAll(n => n.Id == noteId);
+                    todoModelContext.SaveChanges();
 
-                db.UseOnceTo().Update(topic);
-
-                return HttpStatusCode.NoContent;
+                    return HttpStatusCode.NoContent; 
+                }
             };
         }
     }

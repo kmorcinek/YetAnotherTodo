@@ -1,4 +1,6 @@
-﻿using Nancy;
+﻿using AutoMapper;
+using KMorcinek.YetAnotherTodo.Models;
+using Nancy;
 using Nancy.Authentication.Basic;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
@@ -17,7 +19,16 @@ namespace KMorcinek.YetAnotherTodo
                 "demo:demo"));
 
             DbRepository.Initialize();
+
+		    ConfigureAutoMapper();
 		}
+
+        private void ConfigureAutoMapper()
+        {
+            Mapper.CreateMap<DomainClasses.Topic, Topic>();
+            Mapper.CreateMap<DomainClasses.Note, Note>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(origin => origin.NoteId));
+        }
 
         protected override void ConfigureConventions(NancyConventions conventions)
         {

@@ -19,14 +19,14 @@
         }
 
         $scope.addNote = function () {
-            var notes = $scope.notes;
-            var maxId = 0;
-            for (var i = 0; i < notes.length; i++) {
-                if (notes[i].id > maxId) {
-                    maxId = notes[i].id;
-                }
-            }
-            var newNote = { content: $scope.newNoteText, id: maxId + 1 };
+            //var notes = $scope.notes;
+            //var maxId = 0;
+            //for (var i = 0; i < notes.length; i++) {
+            //    if (notes[i].id > maxId) {
+            //        maxId = notes[i].id;
+            //    }
+            //}
+            var newNote = { content: $scope.newNoteText};
 
             TopicNotes.save({topicId: $scope.topicId}, newNote, function () {
                 $scope.notes.push(newNote);
