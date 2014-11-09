@@ -1,10 +1,14 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using KMorcinek.YetAnotherTodo.DataLayer;
 using KMorcinek.YetAnotherTodo.Models;
 using Nancy;
 using Nancy.Authentication.Basic;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
 using Nancy.TinyIoc;
+using SisoDb;
 
 namespace KMorcinek.YetAnotherTodo
 {
@@ -21,7 +25,55 @@ namespace KMorcinek.YetAnotherTodo
             DbRepository.Initialize();
 
 		    ConfigureAutoMapper();
+
+		    ConvertToEF();
 		}
+
+        private void ConvertToEF()
+        {
+            ISisoDatabase sisoDatabase = DbRepository.GetDb();
+            IList<Topic> topics = sisoDatabase.UseOnceTo().Query<Topic>().ToList();
+
+            using (var todoModelContext = new TodoModelContext())
+            {
+                foreach (var topic in topics)
+                {
+                    InsertTopicIntoEF(topic, todoModelContext); 
+                }
+
+                todoModelContext.SaveChanges();
+            }
+        }
+
+        private static void InsertTopicIntoEF(Topic topic1, TodoModelContext todoModelContext)
+        {
+            var topic = Convert(topic1);
+
+            todoModelContext.Topics.Add(topic);
+            foreach (var note in topic.Notes)
+            {
+                todoModelContext.Notes.Add(note);
+            }
+        }
+
+        private static DomainClasses.Topic Convert(Topic source)
+        {
+            DomainClasses.Topic topic = new DomainClasses.Topic
+            {
+                Name = source.Name,
+                IsShown = source.IsShown,
+                Notes = source.Notes.Select(Convert).ToList(),
+            };
+            return topic;
+        }
+
+        private static DomainClasses.Note Convert(Note source)
+        {
+            return new DomainClasses.Note
+            {
+                Content = source.Content
+            };
+        }
 
         private void ConfigureAutoMapper()
         {
