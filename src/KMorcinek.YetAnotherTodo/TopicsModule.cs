@@ -59,27 +59,33 @@ namespace KMorcinek.YetAnotherTodo
 
             Post["/{id:int}"] = parameters =>
             {
-                var id = (int)parameters.id.Value;
+                using (var todoModelContext = new TodoModelContext())
+                {
+                    var id = (int)parameters.id.Value;
 
-                var db = DbRepository.GetDb();
-                var topic = db.UseOnceTo().GetById<Topic>(id);
+                    DomainClasses.Topic topic = todoModelContext.Topics.Find(id);
+                    var db = DbRepository.GetDb();
 
-                this.BindTo(topic, ReflectionHelper.GetPropertyName<Topic>(p => p.Notes));
+                    this.BindTo(topic, ReflectionHelper.GetPropertyName<Topic>(p => p.Notes));
 
-                db.UseOnceTo().Update(topic);
+                    db.UseOnceTo().Update(topic);
 
-                return HttpStatusCode.OK;
+                    return HttpStatusCode.OK; 
+                }
             };
 
             Delete["/{id:int}"] = parameters =>
             {
-                var id = (int)parameters.id.Value;
+                using (var todoModelContext = new TodoModelContext())
+                {
+                    var id = (int)parameters.id.Value;
 
-                var db = DbRepository.GetDb();
+                    DomainClasses.Topic topic = todoModelContext.Topics.Find(id);
+                    todoModelContext.Topics.Remove(topic);
+                    todoModelContext.SaveChanges();
 
-                db.UseOnceTo().DeleteById<Topic>(id);
-
-                return HttpStatusCode.NoContent;
+                    return HttpStatusCode.NoContent; 
+                }
             };
         }
     }
