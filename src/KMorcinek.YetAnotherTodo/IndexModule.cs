@@ -1,6 +1,4 @@
-﻿using System.Web;
-using KMorcinek.YetAnotherTodo.Models;
-using Nancy;
+﻿using Nancy;
 using Nancy.Security;
 using KMorcinek.YetAnotherTodo.Extensions;
 

@@ -1,9 +1,16 @@
 (function () {
     'use strict';
 
-    function TopicCtrl($scope, $location, $stateParams, TopicsFactory, TopicNotes, LastTopicIdService) {
+    function TopicCtrl($scope, $location, $stateParams, $http, TopicsFactory, TopicNotes, LastTopicIdService, NoteMovingService) {
+        $scope.startCallback = NoteMovingService.startCallback;
+
+        NoteMovingService.registerRemovingNoteCallback(function (draggedNote) {
+            var index = $scope.notes.indexOf(draggedNote);
+            $scope.notes.splice(index, 1);
+        });
+
         $scope.notes = [];
-    
+
         $scope.topicId = $stateParams.topicId;
     
         var lastId = $scope.topicId || LastTopicIdService.get();

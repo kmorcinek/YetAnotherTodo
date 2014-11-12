@@ -15,11 +15,11 @@ namespace KMorcinek.YetAnotherTodo
 
             Post["/"] = parameters =>
             {
+                var topicId = (int)parameters.topicId.Value;
+                var note = this.Bind<Note>();
+
                 using (var todoModelContext = new TodoModelContext())
                 {
-                    var topicId = (int)parameters.topicId.Value;
-                    var note = this.Bind<DomainClasses.Note>();
-
                     DomainClasses.Topic topic = todoModelContext.Topics.Find(topicId);
 
                     topic.Notes.Add(note);
@@ -30,14 +30,32 @@ namespace KMorcinek.YetAnotherTodo
                     return HttpStatusCode.Created; 
                 }
             };
+            
+            Post["/move/{noteId:int}"] = parameters =>
+            {
+                var topicId = (int)parameters.topicId.Value;
+                var noteId = (int)parameters.noteId.Value;
+
+                using (var todoModelContext = new TodoModelContext())
+                {
+                    Note note = todoModelContext.Notes.Find(noteId);
+                    note.Topic.Notes.Remove(note);
+                    DomainClasses.Topic newTopic = todoModelContext.Topics.Find(topicId);
+                    newTopic.Notes.Add(note);
+
+                    todoModelContext.SaveChanges();
+
+                    return HttpStatusCode.OK; 
+                }
+            };
 
             Delete["/{noteId:int}"] = parameters =>
             {
+                var topicId = (int)parameters.topicId.Value;
+                var noteId = (int)parameters.noteId.Value;
+
                 using (var todoModelContext = new TodoModelContext())
                 {
-                    var topicId = (int)parameters.topicId.Value;
-                    var noteId = (int)parameters.noteId.Value;
-
                     DomainClasses.Topic topic = todoModelContext.Topics.Find(topicId);
                     Note note = todoModelContext.Notes.Find(noteId);
                     topic.Notes.Remove(note);

@@ -6,7 +6,14 @@
             <button class="btn btn-primary" ng-click="addNote()" ng-disabled="!newNoteText"><i class="glyphicon glyphicon-plus"></i> Add</button>
         </div>
         <ul class="list-unstyled" ng-repeat="note in notes.slice().reverse()">
-            <li><span ng-bind-html="note.content | linky"></span><button class="btn" ng-click="remove(note)">Remove</button></li>
+            <li>
+                <span ng-bind-html="note.content | linky"></span>
+                <button class="btn" ng-click="remove(note)">Remove</button>
+                <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" 
+                     ng-model="note" jqyoui-draggable="{animate:true, onStart:'startCallback(note, $index)'}">
+                    Move
+                </div>
+            </li>
         </ul>
     </div>
 </div>
