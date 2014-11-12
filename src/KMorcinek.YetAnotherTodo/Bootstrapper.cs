@@ -19,8 +19,6 @@ namespace KMorcinek.YetAnotherTodo
                 container.Resolve<IUserValidator>(),
                 "demo:demo"));
 
-            DbRepository.Initialize();
-
 		    ConfigureAutoMapper();
 		}
 

@@ -76,18 +76,6 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\lib\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="SisoDb">
-      <HintPath>..\..\lib\SisoDb.16.2.1\lib\net40\SisoDb.dll</HintPath>
-    </Reference>
-    <Reference Include="SisoDb.Serialization">
-      <HintPath>..\..\lib\SisoDb.16.2.1\lib\net40\SisoDb.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="SisoDb.SqlCe4">
-      <HintPath>..\..\lib\SisoDb.SqlCe4.16.2.1\lib\net40\SisoDb.SqlCe4.dll</HintPath>
-    </Reference>
-    <Reference Include="SisoDb.SqlServer">
-      <HintPath>..\..\lib\SisoDb.SqlCe4.16.2.1\lib\net40\SisoDb.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -249,7 +237,6 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Business\SearchService.cs" />
-    <Compile Include="DbRepository.cs" />
     <Compile Include="DemoUserIdentity.cs" />
     <Compile Include="Extensions\AssemblyHelper.cs" />
     <Compile Include="Extensions\ReflectionHelper.cs" />
