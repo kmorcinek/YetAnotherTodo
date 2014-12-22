@@ -176,3 +176,4 @@ $RECYCLE.BIN/
 .sass-cache
 
 **/*.sln.ide
+src/packages/
