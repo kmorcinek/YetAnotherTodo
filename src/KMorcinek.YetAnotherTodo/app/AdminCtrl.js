@@ -1,14 +1,14 @@
 (function () {
     'use strict';
 
-    function AdminCtrl($scope, $location, TopicsFactory) {
+    function AdminCtrl($scope, $location, TopicsFactory, SlugGeneratorService) {
         TopicsFactory.getTopics().then(function (data) {
             $scope.topics = data;
         });
     
         $scope.addNew = function () {
             TopicsFactory.add($scope.newText).then(function(data){
-                $location.path('/' + data.id + '/' + generateSlug($scope.newText));
+                $location.path('/' + data.id + '/' + SlugGeneratorService.generateSlug($scope.newText));
             });
         };
     
