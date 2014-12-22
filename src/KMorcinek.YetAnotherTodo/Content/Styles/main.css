@@ -3,7 +3,7 @@
 }
 
 #notes {
-    width: 900px;
+    width: 880px;
     float: left;
 }
 
@@ -12,8 +12,10 @@
     }
 
 #topics {
-    width: 300px;
+    width: 320px;
     float: right;
+    overflow-y: auto;
+    height: 800px;
 }
 
     #topics ul {
@@ -35,5 +37,5 @@
 }
 
 .thumbnail {
-    height:35px;
+    height: 35px;
 }
