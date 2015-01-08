@@ -13,7 +13,7 @@
     <aside id="topics" ng-controller="TopicsListCtrl">
         <ul class="list-unstyled" ng-repeat="topic in topics | filter:{isShown:true}">
             <li>
-                <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable="{onDrop:'dropCallback(topic.id)'}">
+                <div class="thumbnail" ng-drop="true" ng-drop-success="dropCallback($data,$event, topic.id)">
                     <a ui-sref="topic({topicId: topic.id, anyTopicName: topic.slug})">{{topic.name}}</a>
                 </div>
             </li>
@@ -23,13 +23,12 @@
 
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/jquery-1.9.1.min.js"></script>
-<script src="~/Scripts/jquery-ui-1.11.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/angular-sanitize.js"></script>
 <script src="~/Scripts/angular-resource.js"></script>
 <script src="~/Scripts/angular-ui-router.js"></script>
 <script src="~/Scripts/angular-local-storage.js"></script>
-<script src="~/Scripts/angular-dragdrop.js"></script>
+<script src="~/Scripts/ngDraggable.js"></script>
 <script src="~/app/app.js"></script>
 <script src="~/app/resources/Topics.js"></script>
 <script src="~/app/resources/TopicNotes.js"></script>

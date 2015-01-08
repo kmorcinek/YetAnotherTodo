@@ -4,11 +4,6 @@
     function TopicCtrl($scope, $location, $stateParams, $http, TopicsFactory, TopicNotes, LastTopicIdService, NoteMovingService) {
         $scope.startCallback = NoteMovingService.startCallback;
 
-        NoteMovingService.registerRemovingNoteCallback(function (draggedNote) {
-            var index = $scope.notes.indexOf(draggedNote);
-            $scope.notes.splice(index, 1);
-        });
-
         $scope.notes = [];
 
         $scope.topicId = $stateParams.topicId;
@@ -55,6 +50,11 @@
             }
         };
     
+        $scope.dragCallback = function(item) {
+            var index = $scope.notes.indexOf(item);
+            $scope.notes.splice(index, 1);
+        }
+
         var setFocusOnNewNote = function () {
             $('#new-content-text').focus();
         }

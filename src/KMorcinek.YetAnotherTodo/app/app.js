@@ -29,6 +29,6 @@
     };
     
     angular
-        .module('YetAnotherTodo', ['ui.router', 'ngSanitize', 'ngResource', 'LocalStorageModule', 'ngDragDrop'])
+        .module('YetAnotherTodo', ['ui.router', 'ngSanitize', 'ngResource', 'LocalStorageModule', 'ngDraggable'])
         .config(yetAnotherTodoConfig);
 })();

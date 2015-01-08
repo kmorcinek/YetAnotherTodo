@@ -9,8 +9,8 @@
             <li>
                 <span ng-bind-html="note.content | linky"></span>
                 <button class="btn" ng-click="remove(note)">Remove</button>
-                <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" 
-                     ng-model="note" jqyoui-draggable="{animate:true, onStart:'startCallback(note, $index)'}">
+                <div class="btn btn-primary" ng-drag="true"
+                    ng-drag-data="note" ng-drag-success="dragCallback($data, $event)">
                     Move
                 </div>
             </li>
