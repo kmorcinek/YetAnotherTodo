@@ -2,18 +2,11 @@
     text-align: center;
 }
 
-#notes {
-    width: 880px;
-    float: left;
+#notes button {
+    margin: 5px 20px;
 }
 
-    #notes button {
-        margin: 5px 20px;
-    }
-
 #topics {
-    width: 320px;
-    float: right;
     overflow-y: auto;
     height: 800px;
 }
@@ -24,7 +17,6 @@
 
 #main {
     margin: 0 auto;
-    width: 1250px;
 }
 
 .shown-false {
@@ -38,4 +30,21 @@
 
 .thumbnail {
     height: 35px;
+}
+
+.fluid #main {
+    float: left;
+    width: 60%;
+}
+.fluid #topics {
+    float: right;
+    width: 40%;
+}
+
+.fluid {
+    -moz-min-width: 700px;
+    -ms-min-width: 700px;
+    -o-min-width: 700px;
+    -webkit-min-width: 700px;
+    min-width: 700px;
 }

@@ -6,18 +6,20 @@
 
 <nav><a ui-sref="home">Notes</a> <a ui-sref="admin">Administration</a></nav>
 <form action="/search"><input name="searchTerm" /><button type="submit">Search</button></form>
+<div class="fluid">
 
-<div ui-view></div>
+    <div ui-view></div>
 
-<aside id="topics" ng-controller="TopicsListCtrl">
-    <ul class="list-unstyled" ng-repeat="topic in topics | filter:{isShown:true}">
-        <li>
-            <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable="{onDrop:'dropCallback(topic.id)'}">
-                <a ui-sref="topic({topicId: topic.id, anyTopicName: topic.slug})">{{topic.name}}</a>
-            </div>
-        </li>
-    </ul>
-</aside>
+    <aside id="topics" ng-controller="TopicsListCtrl">
+        <ul class="list-unstyled" ng-repeat="topic in topics | filter:{isShown:true}">
+            <li>
+                <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable="{onDrop:'dropCallback(topic.id)'}">
+                    <a ui-sref="topic({topicId: topic.id, anyTopicName: topic.slug})">{{topic.name}}</a>
+                </div>
+            </li>
+        </ul>
+    </aside>
+</div>
 
 <script src="~/Scripts/jquery-1.9.1.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.11.2.min.js"></script>
