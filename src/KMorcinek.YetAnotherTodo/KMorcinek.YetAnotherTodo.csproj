@@ -215,9 +215,9 @@
     <Content Include="Views\YetAnotherTodo.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Properties\PublishProfiles\notestest.angelo.hostingasp.pl - Web Deploy.pubxml" />
-    <Content Include="Scripts\version.json" />
     <Content Include="Views\layout.cshtml" />
     <Content Include="Views\Search.cshtml" />
+    <Content Include="Scripts\version.json" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
