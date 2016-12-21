@@ -177,3 +177,6 @@ $RECYCLE.BIN/
 
 **/*.sln.ide
 src/packages/
+
+# Visual Studio temp something
+.vs/
