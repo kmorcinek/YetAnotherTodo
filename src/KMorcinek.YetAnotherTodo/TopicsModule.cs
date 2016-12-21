@@ -11,9 +11,7 @@ namespace KMorcinek.YetAnotherTodo
 {
     public class TopicsModule : NancyModule
     {
-        IMappingEngine mapper = Mapper.Engine;
-        
-        public TopicsModule()
+        public TopicsModule(IMapper mapper)
             : base("/api/topics")
         {
             this.RequiresAuthentication();

@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-using AutoMapper;
-using KMorcinek.YetAnotherTodo.Models;
+﻿using AutoMapper;
 using Nancy;
 using Nancy.Authentication.Basic;
 using Nancy.Bootstrapper;
@@ -15,19 +13,19 @@ namespace KMorcinek.YetAnotherTodo
 		{
             base.ApplicationStartup(container, pipelines);
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
+
+            var mapper = config.CreateMapper();
+
+		    container.Register(mapper);
+
             pipelines.EnableBasicAuthentication(new BasicAuthenticationConfiguration(
                 container.Resolve<IUserValidator>(),
                 "demo:demo"));
-
-		    ConfigureAutoMapper();
 		}
-
-        private void ConfigureAutoMapper()
-        {
-            Mapper.CreateMap<DomainClasses.Topic, Topic>();
-            Mapper.CreateMap<DomainClasses.Note, Note>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(origin => origin.NoteId));
-        }
 
         protected override void ConfigureConventions(NancyConventions conventions)
         {
