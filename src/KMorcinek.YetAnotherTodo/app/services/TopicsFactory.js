@@ -7,10 +7,6 @@
         var deferred = $q.defer();
     
         Topics.query(function (data) {
-            for (var i = 0; i < data.length; i++) {
-                data[i].slug = SlugGeneratorService.generateSlug(data[i].name);
-            }
-    
             topics = data;
     
             deferred.resolve(topics)

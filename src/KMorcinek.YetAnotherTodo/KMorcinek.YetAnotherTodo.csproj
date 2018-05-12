@@ -204,6 +204,7 @@
     <Compile Include="Business\SearchService.cs" />
     <Compile Include="DemoUserIdentity.cs" />
     <Compile Include="Extensions\AssemblyHelper.cs" />
+    <Compile Include="Extensions\DiacriticsHelper.cs" />
     <Compile Include="Extensions\ReflectionHelper.cs" />
     <Compile Include="IndexModule.cs" />
     <Compile Include="Models\Note.cs" />
