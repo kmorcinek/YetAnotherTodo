@@ -148,6 +148,9 @@ UpgradeLog*.htm
 # svn
 .svn
 
+# CVS - Source Control
+**/CVS/
+
 # Remainings from resolvings conflicts in Source Control
 *.orig
 
@@ -197,6 +200,9 @@ project.lock.json
 
 # Rider
 .idea/
+
+# Visual Studio Code
+.vscode/
 
 # Output folder used by Webpack or other FE stuff
 **/node_modules/*
